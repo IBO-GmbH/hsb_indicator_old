@@ -1,0 +1,6 @@
+Functions --> all lowercase, snake case
+Variables --> all lowercase, snake case
+Classes, Structs --> first letter caps, snake case
+Members --> like variables, private&protected members with leading m_
+Types --> trailing _t
+
