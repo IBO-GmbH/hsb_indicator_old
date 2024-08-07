@@ -6,7 +6,7 @@ Wifi_handler::~Wifi_handler() = default;
 
 void Wifi_handler::event_handler(void *arg, esp_event_base_t event_base,
                                  int32_t event_id, void *event_dat) {
-  ESP_LOGI(tag.c_str(), "WIFI HANDLER CALLED", event_id, "\n");
+  ESP_LOGI(tag.c_str(), "WIFI HANDLER CALLED %ld", event_id);
   if (event_id == WIFI_EVENT_STA_START) {
     ESP_LOGI(tag.c_str(), "WIFI CONNECTING....\n");
   } else if (event_id == WIFI_EVENT_STA_CONNECTED) {
@@ -60,26 +60,29 @@ esp_err_t Wifi_handler::init_sta() {
   return ESP_OK;
 }
 
-esp_err_t Wifi_handler::connect_to_wifi(std::string ssid,
-                                        std::string password) {
-  // ESP_ERROR_CHECK(esp_wifi_disconnect());
-  //  this->set_ssid_and_pw(ssid, password);
-  //  esp_wifi_connect();
-  //  return ESP_OK;
+esp_err_t Wifi_handler::connect_to_wifi(std::string_view ssid,
+                                        std::string_view password) {
+  ESP_ERROR_CHECK(esp_wifi_disconnect());
+  this->set_ssid_and_pw(ssid, password);
+  esp_wifi_connect();
+  return ESP_OK;
 }
 
-esp_err_t Wifi_handler::set_ssid_and_pw(std::string ssid,
-                                        std::string password) {
-  wifi_config_t wifi_config = {.sta =
-                                   {
-                                       .ssid = "",
-                                       .password = "",
-                                   }
-
-  };
-  strcpy((char *)wifi_config.sta.ssid, ssid.c_str());
-  strcpy((char *)wifi_config.sta.password, password.c_str());
-  ESP_LOGI(tag.c_str(), "Kconfig", "SSID=%s, PASS=%s", ssid, password);
+esp_err_t Wifi_handler::set_ssid_and_pw(std::string_view ssid,
+                                        std::string_view password) {
+  if (ssid.length() > 32 - 1 || password.length() > 64 - 1) {
+    ESP_LOGE(tag.c_str(), "Given SSID or password too long");
+    assert(false);
+  }
+  wifi_config_t wifi_config;
+  memset(&wifi_config, '\0', sizeof(wifi_config_t));
+  memcpy((char *)wifi_config.sta.ssid, ssid.data(), ssid.length());
+  memcpy((char *)wifi_config.sta.password, password.data(), password.length());
+  // strcpy((char *)wifi_config.sta.ssid, ssid.c_str());
+  // strcpy((char *)wifi_config.sta.password, password.c_str());
+  ESP_LOGI(tag.c_str(), "Wifi config: SSID=%.*s, PASS=%.*s",
+           static_cast<int>(ssid.length()), ssid.data(),
+           static_cast<int>(password.length()), password.data());
   ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
   m_ssid = ssid;
   m_password = password;
@@ -128,6 +131,24 @@ void Wifi_handler::log_ap_info(std::span<wifi_ap_record_t> ap_info) {
     }
     ESP_LOGI(tag.c_str(), "Channel \t\t%d", ap_info[i].primary);
   }
+}
+
+bool Wifi_handler::ssid_in_records(std::span<wifi_ap_record_t> ap_info,
+                                   std::string_view ssid) {
+  for (std::size_t i = 0; i < ap_info.size(); ++i) {
+    // Compare the ssid with the ssid in ap_info[i]
+    // std::strncmp is used to compare fixed-size C-strings since string_view
+    // does not have to end with a null terminator
+    if (std::strncmp(reinterpret_cast<const char *>(ap_info[i].ssid),
+                     ssid.data(), ssid.size()) == 0) {
+      // Additional check to ensure the lengths match exactly
+      if (ssid.size() ==
+          std::strlen(reinterpret_cast<const char *>(ap_info[i].ssid))) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 #ifdef USE_CHANNEL_BTIMAP
