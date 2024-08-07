@@ -57,15 +57,27 @@ esp_err_t Wifi_handler::init_sta() {
   ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
   ESP_ERROR_CHECK(esp_wifi_start());
 
+#if defined INIT_WIFI_SSID && defined INIT_WIFI_PASSWORD
+  this->set_ssid_and_pw(INIT_WIFI_SSID, INIT_WIFI_PASSWORD);
+#endif
+
   return ESP_OK;
+}
+
+esp_err_t Wifi_handler::connect_to_wifi() {
+  esp_err_t ret;
+  ESP_ERROR_CHECK(esp_wifi_disconnect());
+  ret = esp_wifi_connect();
+  return ret;
 }
 
 esp_err_t Wifi_handler::connect_to_wifi(std::string_view ssid,
                                         std::string_view password) {
+  esp_err_t ret;
   ESP_ERROR_CHECK(esp_wifi_disconnect());
   this->set_ssid_and_pw(ssid, password);
-  esp_wifi_connect();
-  return ESP_OK;
+  ret = esp_wifi_connect();
+  return ret;
 }
 
 esp_err_t Wifi_handler::set_ssid_and_pw(std::string_view ssid,

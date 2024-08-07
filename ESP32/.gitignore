@@ -4,3 +4,4 @@ build
 *.old
 *node_modules
 *.lock
+credentials.h
