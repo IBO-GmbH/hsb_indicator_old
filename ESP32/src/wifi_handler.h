@@ -36,13 +36,16 @@ class Wifi_handler {
   // initializes Wifi in Station Mode
   esp_err_t init_sta();
 
-  esp_err_t connect_to_wifi(std::string ssid, std::string password);
-  esp_err_t set_ssid_and_pw(std::string ssid, std::string password);
+  esp_err_t connect_to_wifi(std::string_view ssid, std::string_view password);
+  esp_err_t set_ssid_and_pw(std::string_view ssid, std::string_view password);
 
   // returns array or vector of scanned AP's up to the size of the array
   esp_err_t scan(std::span<wifi_ap_record_t> ap_info);
   // prints scan data to the monitor
   void log_ap_info(std::span<wifi_ap_record_t> ap_info);
+  // check if ssid is contained in wifi records and returns true if found
+  bool ssid_in_records(std::span<wifi_ap_record_t> ap_info,
+                       std::string_view ssid);
 
 #ifdef USE_CHANNEL_BTIMAP
   static void array_2_channel_bitmap(const uint8_t channel_list[],
