@@ -9,3 +9,5 @@ idf_component_register(SRCS "${srcs}"
                     REQUIRES bus i2c_devices)
 
 target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-format")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-discarded-qualifiers")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-incompatible-pointer-types")
