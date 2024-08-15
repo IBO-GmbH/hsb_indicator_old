@@ -9,8 +9,10 @@ void Wifi_handler::event_handler(void *arg, esp_event_base_t event_base,
   ESP_LOGI(tag.c_str(), "WIFI HANDLER CALLED %ld", event_id);
   if (event_id == WIFI_EVENT_STA_START) {
     ESP_LOGI(tag.c_str(), "WIFI CONNECTING....\n");
+    m_connecting = true;
   } else if (event_id == WIFI_EVENT_STA_CONNECTED) {
     ESP_LOGI(tag.c_str(), "WiFi CONNECTED\n");
+    m_connecting = false;
   } else if (event_id == WIFI_EVENT_STA_DISCONNECTED) {
     ESP_LOGI(tag.c_str(), "WiFi lost connection\n");
     if (m_retry_num < 5) {
@@ -102,6 +104,9 @@ esp_err_t Wifi_handler::set_ssid_and_pw(std::string_view ssid,
 }
 
 esp_err_t Wifi_handler::scan(std::span<wifi_ap_record_t> ap_info) {
+  if (m_connecting) {
+    return ESP_ERR_INVALID_STATE;
+  }
   uint16_t number = ap_info.size();
   // wifi_ap_record_t ap_info[DEFAULT_SCAN_LIST_SIZE];
   uint16_t ap_count = 0;
