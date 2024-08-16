@@ -2,14 +2,13 @@
 
 // TODO fix test case
 // void test_wifi_default_connection(void) {
-TEST(Wifi_test, ShouldPass) {
-  Wifi_handler wifi_handler;
+TEST_F(WifiTest, DefaultConnectionEstablish) {
   esp_err_t err_connection;
 
-  wifi_handler.init_sta();
-  err_connection = wifi_handler.connect_to_wifi();
+  err_connection = m_wifi_handler.connect_to_wifi();
 
-  EXPECT_EQ(err_connection, ESP_OK);
+  EXPECT_EQ(err_connection, ESP_OK)
+      << "Wifi connection could not be established";
 }
 
 int test_wifi(int argc, char **argv) {
