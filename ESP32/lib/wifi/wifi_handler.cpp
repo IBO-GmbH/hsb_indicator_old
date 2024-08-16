@@ -2,7 +2,13 @@
 
 Wifi_handler::Wifi_handler() : tag("wifi_handler") {}
 
-Wifi_handler::~Wifi_handler() = default;
+Wifi_handler::~Wifi_handler() {
+  esp_err_t ret;
+  ret = this->deinit();
+  if (ret != ESP_OK && ret != ESP_ERR_WIFI_NOT_INIT) {
+    ESP_ERROR_CHECK(ret);
+  }
+}
 
 void Wifi_handler::event_handler(void *arg, esp_event_base_t event_base,
                                  int32_t event_id, void *event_dat) {
@@ -64,6 +70,20 @@ esp_err_t Wifi_handler::init_sta() {
 #endif
 
   return ESP_OK;
+}
+
+esp_err_t Wifi_handler::deinit() {
+  esp_err_t ret;
+  ret = esp_wifi_disconnect();
+  if (ret != ESP_OK) {
+    return ret;
+  }
+  ret = esp_wifi_stop();
+  if (ret != ESP_OK) {
+    return ret;
+  }
+  ret = esp_wifi_deinit();
+  return ret;
 }
 
 esp_err_t Wifi_handler::connect_to_wifi() {
