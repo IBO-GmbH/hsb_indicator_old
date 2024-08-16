@@ -35,6 +35,7 @@ class Wifi_handler {
 
   // initializes Wifi in Station Mode
   esp_err_t init_sta();
+  esp_err_t deinit();
 
   esp_err_t connect_to_wifi();
   esp_err_t connect_to_wifi(std::string_view ssid, std::string_view password);
