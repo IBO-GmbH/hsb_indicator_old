@@ -83,6 +83,11 @@ esp_err_t Wifi_handler::deinit() {
     return ret;
   }
   ret = esp_wifi_deinit();
+  if (ret != ESP_OK) {
+    return ret;
+  }
+
+  ret = esp_event_loop_delete_default();
   return ret;
 }
 
