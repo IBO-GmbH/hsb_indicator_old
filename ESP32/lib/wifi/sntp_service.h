@@ -13,7 +13,8 @@ class Sntp_service {
   Sntp_service();
   ~Sntp_service();
 
-  void init();
+  esp_err_t init();
+  esp_err_t deinit();
 
  private:
 };
