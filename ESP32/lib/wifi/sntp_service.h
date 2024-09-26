@@ -7,6 +7,7 @@
 
 // #include "esp_netif.h"
 #include "esp_netif_sntp.h"
+#include "esp_sntp.h"
 
 class Sntp_service {
  public:
