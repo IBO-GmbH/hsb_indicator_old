@@ -42,13 +42,22 @@ TEST_F(WifiTest, Sntp) {
   struct tm timeinfo;
   char strftime_buf[64];
 
-  sntp.init();
+  esp_err_t sntp_init_err;
+  sntp_init_err = sntp.init();
+
+  ASSERT_EQ(sntp_init_err, ESP_OK);
+
+  ASSERT_TRUE(esp_sntp_enabled());
 
   EXPECT_EQ(sntp_get_sync_mode(), SNTP_SYNC_MODE_IMMED);
 
-  // wait on sntp status for 20 seconds
-  esp_err_t sync_err = esp_netif_sntp_sync_wait(pdMS_TO_TICKS(30000));
-  ASSERT_EQ(sync_err, ESP_OK);
+  // wait on sntp status for 10 seconds and if not synced restart and wait again
+  esp_err_t sync_err = esp_netif_sntp_sync_wait(pdMS_TO_TICKS(10000));
+  if (sync_err != ESP_OK) {
+    sntp_restart();
+    sync_err = esp_netif_sntp_sync_wait(pdMS_TO_TICKS(10000));
+  }
+  EXPECT_EQ(sync_err, ESP_OK);
   /*// other way to poll on sntp status
   int max_tries = 100;
   int current_try = 0;
@@ -67,19 +76,23 @@ TEST_F(WifiTest, Sntp) {
   char build_time_buf[64];
   strftime(build_time_buf, sizeof(build_time_buf), "%c", &build_time_tm);
 
+  // get current time in seconds since epoch, hopefully updated by the SNTP
   time(&now);
+  // convert it to the tm struct
   gmtime_r(&now, &timeinfo);
 
+  // get time difference of system time and build time in seconds
   double diffSecs = difftime(now, build_time_t);
   diffSecs = abs(diffSecs);
 
+  // log time in human readable text from tm struct
   ESP_LOGI("WifiTest.Sntp", "build time: %s", build_time_buf);
   strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
   ESP_LOGI("WifiTest.Sntp", "NOW: %s", strftime_buf);
-
+  // log time in human readable text from epoch timestamp
   ESP_LOGI("WifiTest.Sntp", "build time: %s, NOW: %s", ctime(&build_time_t),
            ctime(&now));
-
+  // log time in seconds from epoch
   ESP_LOGI("WifiTest.Sntp", "build time sec: %jd, now seconds: %jd",
            (intmax_t)build_time_t, (intmax_t)now);
 
