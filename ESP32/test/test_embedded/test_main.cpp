@@ -17,12 +17,18 @@ static const char *TAG = "test_app_main";
 TEST(DummyTest, ShouldPass) { EXPECT_EQ(1, 1); }
 
 extern "C" void app_main() {
+  // filter to select specific test cases
+  ::testing::GTEST_FLAG(filter) =
+      "*";  // e.g.: "DummyTest.ShouldPass", default = "*"
   ::testing::InitGoogleTest();
   ESP_ERROR_CHECK(bsp_board_init());
   Flash_controller memory;
   memory.init();
+  // create default event loop for wifi
+  ESP_ERROR_CHECK(esp_event_loop_create_default());
   //
   if (RUN_ALL_TESTS()) {
   }
+
   // test_wifi(0, NULL);
 }
