@@ -67,6 +67,7 @@ class Wifi_handler {
   std::string m_password;
   uint8_t m_retry_num = 0;
   bool m_connecting = false;
+  esp_netif_t *wifi_netif = NULL;
 };
 
 #endif  // WIFI_HANDLER_H
