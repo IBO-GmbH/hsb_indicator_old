@@ -45,9 +45,18 @@ void Wifi_handler::event_handler_static(void *arg, esp_event_base_t event_base,
 
 esp_err_t Wifi_handler::init_sta() {
   ESP_ERROR_CHECK(esp_netif_init());
-  ESP_ERROR_CHECK(esp_event_loop_create_default());
-  esp_netif_t *sta_netif = esp_netif_create_default_wifi_sta();
-  assert(sta_netif);
+
+  // check if default event loop already exists and if not create it
+  esp_err_t default_event_loop_err = esp_event_loop_create_default();
+  if (default_event_loop_err == ESP_ERR_INVALID_STATE) {
+    // Default event loop already exists
+    ESP_LOGI(tag.c_str(), "Default event loop already created.");
+  } else {
+    ESP_ERROR_CHECK(default_event_loop_err);
+  }
+
+  this->wifi_netif = esp_netif_create_default_wifi_sta();
+  assert(wifi_netif);
 
   wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
   ESP_ERROR_CHECK(esp_wifi_init(&cfg));
@@ -87,7 +96,9 @@ esp_err_t Wifi_handler::deinit() {
     return ret;
   }
 
-  ret = esp_event_loop_delete_default();
+  // esp_netif_destroy_default_wifi(wifi_netif);
+  esp_netif_destroy(wifi_netif);
+  wifi_netif = NULL;
   return ret;
 }
 
@@ -169,7 +180,8 @@ void Wifi_handler::log_ap_info(std::span<wifi_ap_record_t> ap_info) {
     ESP_LOGI(tag.c_str(), "RSSI \t\t%d", ap_info[i].rssi);
     // print_auth_mode(ap_info[i].authmode);
     if (ap_info[i].authmode != WIFI_AUTH_WEP) {
-      // print_cipher_type(ap_info[i].pairwise_cipher, ap_info[i].group_cipher);
+      // print_cipher_type(ap_info[i].pairwise_cipher,
+      // ap_info[i].group_cipher);
     }
     ESP_LOGI(tag.c_str(), "Channel \t\t%d", ap_info[i].primary);
   }
