@@ -29,12 +29,13 @@ TEST_F(WifiTest, Scan) {
   };
   m_wifi_handler.log_ap_info(scan_res);
 
-  wifi_ap_record_t ap_info;
-  esp_wifi_sta_get_ap_info(&ap_info);
+  wifi_ap_record_t connected_ap_info;
+  esp_wifi_sta_get_ap_info(&connected_ap_info);
 
   bool found_own_ssid_in_scan = false;
   for (int i = 0; i < scan_res.size(); i++) {
-    if (memcmp(ap_info.ssid, scan_res[i].ssid, sizeof(ap_info.ssid)) == 0) {
+    if (memcmp(connected_ap_info.ssid, scan_res[i].ssid,
+               sizeof(connected_ap_info.ssid)) == 0) {
       found_own_ssid_in_scan = true;
     }
   }
