@@ -3,11 +3,9 @@
 
 #pragma once
 
-#include "time.h"
-
-// #include "esp_netif.h"
 #include "esp_netif_sntp.h"
 #include "esp_sntp.h"
+#include "time.h"
 
 class Sntp_service {
  public:
