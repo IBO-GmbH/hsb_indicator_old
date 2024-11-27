@@ -7,16 +7,8 @@
 #include <span>
 #include <string>
 
-// #include "freertos/FreeRTOS.h"
-// #include "freertos/event_groups.h"
-//
-// #include "esp_event.h"
 #include "esp_log.h"
-// #include "esp_system.h"
 #include "esp_wifi.h"
-// #include "nvs_flash.h"
-// #include "regex.h"
-// #include "esp_smartconfig.h"
 
 #define DEFAULT_SCAN_LIST_SIZE 10
 
