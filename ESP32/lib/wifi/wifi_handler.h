@@ -30,13 +30,15 @@ class Wifi_handler {
   esp_err_t deinit();
 
   esp_err_t connect_to_wifi();
-  esp_err_t connect_to_wifi(std::string_view ssid, std::string_view password);
-  esp_err_t set_ssid_and_pw(std::string_view ssid, std::string_view password);
+  esp_err_t connect_to_wifi(const std::string_view ssid,
+                            const std::string_view password);
+  esp_err_t set_ssid_and_pw(const std::string_view ssid,
+                            const std::string_view password);
 
   // returns array or vector of scanned AP's up to the size of the array
   esp_err_t scan(std::span<wifi_ap_record_t> ap_info);
   // prints scan data to the monitor
-  void log_ap_info(std::span<wifi_ap_record_t> ap_info);
+  void log_ap_info(std::span<wifi_ap_record_t> ap_info) const;
   // check if ssid is contained in wifi records and returns true if found
   bool ssid_in_records(std::span<wifi_ap_record_t> ap_info,
                        std::string_view ssid);

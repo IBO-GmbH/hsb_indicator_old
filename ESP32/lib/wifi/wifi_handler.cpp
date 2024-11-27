@@ -3,8 +3,7 @@
 Wifi_handler::Wifi_handler() : tag("wifi_handler") {}
 
 Wifi_handler::~Wifi_handler() {
-  esp_err_t ret;
-  ret = this->deinit();
+  esp_err_t ret = deinit();
   if (ret != ESP_OK && ret != ESP_ERR_WIFI_NOT_INIT) {
     ESP_ERROR_CHECK(ret);
   }
@@ -109,8 +108,8 @@ esp_err_t Wifi_handler::connect_to_wifi() {
   return ret;
 }
 
-esp_err_t Wifi_handler::connect_to_wifi(std::string_view ssid,
-                                        std::string_view password) {
+esp_err_t Wifi_handler::connect_to_wifi(const std::string_view ssid,
+                                        const std::string_view password) {
   esp_err_t ret;
   ESP_ERROR_CHECK(esp_wifi_disconnect());
   this->set_ssid_and_pw(ssid, password);
@@ -118,8 +117,8 @@ esp_err_t Wifi_handler::connect_to_wifi(std::string_view ssid,
   return ret;
 }
 
-esp_err_t Wifi_handler::set_ssid_and_pw(std::string_view ssid,
-                                        std::string_view password) {
+esp_err_t Wifi_handler::set_ssid_and_pw(const std::string_view ssid,
+                                        const std::string_view password) {
   if (ssid.length() > 32 - 1 || password.length() > 64 - 1) {
     ESP_LOGE(tag.c_str(), "Given SSID or password too long");
     assert(false);
@@ -173,7 +172,7 @@ esp_err_t Wifi_handler::scan(std::span<wifi_ap_record_t> ap_info) {
   return ESP_OK;
 }
 
-void Wifi_handler::log_ap_info(std::span<wifi_ap_record_t> ap_info) {
+void Wifi_handler::log_ap_info(std::span<wifi_ap_record_t> ap_info) const {
   uint16_t number = ap_info.size();
   for (int i = 0; i < number; i++) {
     ESP_LOGI(tag.c_str(), "SSID \t\t%s", ap_info[i].ssid);
