@@ -1,6 +1,6 @@
 #include "flash_controller.h"
 
-Flash_controller::Flash_controller() : tag("flash_controller") {}
+Flash_controller::Flash_controller() : m_tag("flash_controller") {}
 
 Flash_controller::~Flash_controller() = default;
 
