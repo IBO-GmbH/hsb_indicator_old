@@ -12,10 +12,8 @@ class Sntp_service {
   Sntp_service();
   ~Sntp_service();
 
-  esp_err_t init();
-  esp_err_t deinit();
-
- private:
+  esp_err_t init() const;
+  esp_err_t deinit() const;
 };
 
 #endif  // SNTP_SERVICE_H
