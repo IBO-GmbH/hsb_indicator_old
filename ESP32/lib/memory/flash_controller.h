@@ -16,7 +16,7 @@ class Flash_controller {
   esp_err_t init();
 
  private:
-  const std::string tag;
+  const std::string m_tag;
 };
 
 #endif  // FLASH_CONTROLLER_H
