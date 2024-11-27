@@ -14,11 +14,7 @@ TEST_F(WifiTest, Sntp) {
   sntp_sync_status_t sntp_status;
   Sntp_service sntp;
 
-  esp_err_t err_connection;
-
-  err_connection = m_wifi_handler.connect_to_wifi();
-
-  EXPECT_EQ(err_connection, ESP_OK)
+  EXPECT_EQ(m_wifi_handler.connect_to_wifi(), ESP_OK)
       << "Wifi connection could not be established";
 
   std::tm build_time_tm{};
@@ -32,18 +28,16 @@ TEST_F(WifiTest, Sntp) {
 
   std::time_t build_time_t = std::mktime(&build_time_tm) - _timezone;
 
-  // ESP_LOGI("WifiTest.Sntp", "build time sec: %jd", (intmax_t)build_time_t);
-  // ESP_LOGI("WifiTest.Sntp", "%d, month: %d, day: %d, hour:%d, min:%d,
-  // sec:%d",
-  //          BUILD_YEAR, BUILD_MONTH, BUILD_DAY, BUILD_HOUR, BUILD_MIN,
-  //          BUILD_SEC);
+  ESP_LOGD("WifiTest.Sntp", "build time sec: %jd", (intmax_t)build_time_t);
+  ESP_LOGD("WifiTest.Sntp",
+           "%d, month: %d, day: %d, hour:%d, min:%d, sec: % d ", BUILD_YEAR,
+           BUILD_MONTH, BUILD_DAY, BUILD_HOUR, BUILD_MIN, BUILD_SEC);
 
   time_t now;
   struct tm timeinfo;
   char strftime_buf[64];
 
-  esp_err_t sntp_init_err;
-  sntp_init_err = sntp.init();
+  esp_err_t sntp_init_err{sntp.init()};
 
   ASSERT_EQ(sntp_init_err, ESP_OK);
 
