@@ -37,9 +37,7 @@ TEST_F(WifiTest, Sntp) {
   struct tm timeinfo;
   char strftime_buf[64];
 
-  esp_err_t sntp_init_err{sntp.init()};
-
-  ASSERT_EQ(sntp_init_err, ESP_OK);
+  ASSERT_EQ(sntp.init(), ESP_OK);
 
   ASSERT_TRUE(esp_sntp_enabled());
 
