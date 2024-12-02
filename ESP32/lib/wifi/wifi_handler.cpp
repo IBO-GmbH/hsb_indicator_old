@@ -1,6 +1,6 @@
 #include "wifi_handler.h"
 
-Wifi_handler::Wifi_handler() : m_tag("wifi_handler") {}
+Wifi_handler::Wifi_handler() {}
 
 Wifi_handler::~Wifi_handler() {
   esp_err_t ret = deinit();
