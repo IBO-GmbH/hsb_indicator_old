@@ -90,3 +90,5 @@ idf_component_register(
         lora)
 
 target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-format")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-uninitialized")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-unused")

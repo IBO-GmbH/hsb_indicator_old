@@ -84,6 +84,11 @@ static bool lv_port_flush_ready(void) {
   return false;
 }
 
+static bool lv_port_flush_ready_wrapper(void *arg) {
+  // Call the original function, ignoring the argument
+  return lv_port_flush_ready();
+}
+
 static bool lv_port_flush_is_last(void) {
   return lv_disp_flush_is_last(&disp_drv);
 }
@@ -135,6 +140,9 @@ static void button_read(lv_indev_drv_t *indev_drv, lv_indev_data_t *data) {
   data->key = last_key;
 }
 
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wattributes"
 /**
  * @brief Read touchpad data.
  *
@@ -168,6 +176,7 @@ static IRAM_ATTR void touchpad_read(lv_indev_drv_t *indev_drv,
   // ESP_LOGI(TAG, "Touch (%u) : [%3u, %3u] - 0x%02X", indev_data.pressed,
   // data->point.x, data->point.y, indev_data.btn_val);
 }
+#pragma GCC diagnostic pop
 
 /**
  * @brief Initialize display driver for LVGL.
@@ -206,7 +215,7 @@ static void lv_port_disp_init(void) {
 
   /* Use lcd_trans_done_cb to inform the graphics library that flush already
    * done */
-  bsp_lcd_set_cb(lv_port_flush_ready, NULL);
+  bsp_lcd_set_cb(lv_port_flush_ready_wrapper, NULL);
 
 #if CONFIG_LCD_LVGL_DIRECT_MODE
   bsp_lcd_flush_is_last_register(lv_port_flush_is_last);
@@ -286,7 +295,7 @@ static esp_err_t lv_port_tick_init(void) {
       .callback = lv_tick_inc_cb,
       .name = "", /* name is optional, but may help identify the timer when
                      debugging */
-      .arg = &tick_inc_period_ms,
+      .arg = (void *)&tick_inc_period_ms,
       .dispatch_method = ESP_TIMER_TASK,
       .skip_unhandled_events = true,
   };

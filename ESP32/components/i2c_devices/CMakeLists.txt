@@ -12,3 +12,9 @@ idf_component_register(
         "sensor/bmp3xx"
     REQUIRES
         bsp)
+
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-format")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-uninitialized")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-unused")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-missing-field-initializers")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-incompatible-pointer-types")

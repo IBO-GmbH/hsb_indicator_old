@@ -230,7 +230,7 @@ typedef struct {
     bool LCD_MIRROR_X    ;
     bool LCD_MIRROR_Y    ;
     bool LCD_COLOR_INV   ;
-    esp_lcd_color_space_t LCD_COLOR_SPACE;
+    lcd_color_space_t LCD_COLOR_SPACE;
 
     // SPI interface GPIOs for LCD panel
     int GPIO_LCD_BL     ;

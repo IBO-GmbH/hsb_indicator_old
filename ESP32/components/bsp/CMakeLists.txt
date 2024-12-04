@@ -23,3 +23,9 @@ idf_component_register(
         nvs_flash
         spiffs
         lora)
+
+
+# ignore all warnings in this component
+target_compile_options(${COMPONENT_LIB} PRIVATE "-w")
+target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-deprecated-declarations")
+

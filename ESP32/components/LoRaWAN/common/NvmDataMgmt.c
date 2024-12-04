@@ -117,11 +117,12 @@ static esp_err_t __nvs_read_then_check(char* p_key, void* p_data,
 
   calculatedCrc32 = Crc32Init();
   for (uint16_t i = 0; i < (len - sizeof(readCrc32)); i++) {
-    calculatedCrc32 = Crc32Update(calculatedCrc32, &p_data[i], 1);
+    calculatedCrc32 = Crc32Update(calculatedCrc32, &((uint8_t*)p_data)[i], 1);
   }
   calculatedCrc32 = Crc32Finalize(calculatedCrc32);
 
-  memcpy(&readCrc32, &p_data[len - sizeof(readCrc32)], sizeof(readCrc32));
+  memcpy(&readCrc32, &((uint8_t*)p_data)[len - sizeof(readCrc32)],
+         sizeof(readCrc32));
 
   if (calculatedCrc32 != readCrc32) {
     ESP_LOGE("lorawan", "nvs crc check fail");
