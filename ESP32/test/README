@@ -1,5 +1,38 @@
+## test_embedded
+Runs test cases on the device. 
+Therefore the port has to be configured in the platformio.ini in the board environment. 
 
-This directory is intended for PlatformIO Test Runner and project tests.
+
+## test_native
+The native tests that can be run without the device.
+No assumptions of the build chain are made, therefore gcc must run on the host machine.
+As this runs on the host, framework libraries are not used and therefore fakes and mocks are used to simulate it.
+This uses the native environment in the platformio.ini.
+
+## Usage
+
+To run all test simply run in the platformIO CLI:
+```bash
+pio test
+```
+
+To run a specifiv enviroment run one of these commands:
+```bash
+pio test -e native
+pio test -e esp32-s3-devkitc-1
+```
+
+To run a specific test in the native enviroment run:
+```bash
+pio test -a "--gtest_filter=DummyTest.ShouldPass"
+```
+
+To run a specific test in the embedded enviroment change the filter in the main to the test name, e.g.:
+```C++
+  ::testing::GTEST_FLAG(filter) = "DummyTest.ShouldPass";
+```
+
+## This directory is intended for PlatformIO Test Runner and project tests.
 
 Unit Testing is a software testing method by which individual units of
 source code, sets of one or more MCU program modules together with associated
