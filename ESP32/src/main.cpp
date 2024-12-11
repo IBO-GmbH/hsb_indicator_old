@@ -16,20 +16,20 @@
 // source files
 #include "flash_controller.h"
 #include "sntp_service.h"
-#include "uart_handler.h"
+//#include "uart_handler.h"
 #include "wifi_handler.h"
 
 #define READ_PRIORITY (configMAX_PRIORITIES - 1)
 
 static const char *TAG = "app_main";
 
-uart_handler uart_handler_;
+//uart_handler uart_handler_;
 Wifi_handler wifi_handler;
 Sntp_service sntp;
 
 static void read_uart_task(void *arg) {
   while (1) {
-    uart_handler_.read_from_sensor();
+    //uart_handler_.read_from_sensor();
   }
 }
 
@@ -66,7 +66,7 @@ extern "C" void app_main() {
   // init WIFI and esablish a connection to the AP set in the credentials
   ESP_ERROR_CHECK(wifi_handler.init_sta());
   ESP_ERROR_CHECK(wifi_handler.connect_to_wifi());
-  ESP_LOGI(TAG, "SSID: %s", INIT_WIFI_SSID);
+  //ESP_LOGI(TAG, "SSID: %s", INIT_WIFI_SSID);
 
   // start SNTP service
   ESP_ERROR_CHECK(sntp.init());
