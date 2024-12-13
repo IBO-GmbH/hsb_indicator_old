@@ -1,0 +1,2 @@
+echo This goes to stdout
+>&2 echo This goes to stderr

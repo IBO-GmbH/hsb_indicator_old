@@ -1,0 +1,10 @@
+#!/bin/bash
+ 
+set -e
+ 
+pkill -c -n mold
+echo "done killing"
+ 
+bash -c "sleep 3;pkill -c -9 mold;rm database.db;./exec-mold"&
+
+

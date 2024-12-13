@@ -1,0 +1,2 @@
+source enviroment
+export LD_PRELOAD=./lib/libasan.so

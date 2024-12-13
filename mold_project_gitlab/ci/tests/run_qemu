@@ -1,0 +1,32 @@
+#!/bin/bash
+
+image=./base.img
+
+mkdir -p mnt
+umount ./mnt
+mount $image ./mnt -o offset=272629760 || exit 1
+# sed -i '/rename/d' ./mnt/root/start
+rm -v ./mnt/root/start
+sed -i -e 's/mmcblk0p/sda/g' ./mnt/etc/fstab
+
+mkdir -p ./mnt/root/.ssh/ || exit 1
+chmod 700 ./mnt/root/.ssh/
+cat ./ssh_key_ci.pub > ./mnt/root/.ssh/authorized_keys || exit 1
+chmod 644 ./mnt/root/.ssh/authorized_keys
+
+cp -r ./install ./mnt/opt
+
+umount ./mnt || exit 1
+echo "starting qemu"
+export QEMU_AUDIO_DRV=none
+qemu-system-arm -kernel ./kernel-qemu-4.4.34-jessie -cpu arm1176 -m 256 -M versatilepb \
+  -append "root=/dev/sda2 rootfstype=ext4 rw" \
+  -redir tcp:5022::20022 \
+  -drive format=raw,file=$image \
+  -no-reboot \
+  -nographic 
+# -serial stdio
+rc=$?
+echo "qemu ended with: $rc"
+
+exit $rc

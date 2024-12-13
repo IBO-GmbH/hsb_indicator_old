@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+source enviroment
+
+date
+./bin/mold $@;
+RESULT=$?
+echo "mold crashed with code $RESULT. Restarting in one second."
+./scripts/logging/save_crash_logs $RESULT
+exit $RESULT

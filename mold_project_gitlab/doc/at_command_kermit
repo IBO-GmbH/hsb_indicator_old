@@ -1,0 +1,16 @@
+kermit -l /dev/ttyUSB0
+(/opt/mold_dev/) C-Kermit>set line /dev/ttyUSB0
+(/opt/mold_dev/) C-Kermit>set speed 115200
+/dev/ttyUSB0, 115200 bps
+(/opt/mold_dev/) C-Kermit>set flow-control none
+(/opt/mold_dev/) C-Kermit>set stop-bits 1
+(/opt/mold_dev/) C-Kermit>set carrier-watch off
+(/opt/mold_dev/) C-Kermit>connect
+Connecting to /dev/ttyUSB0, speed 115200
+ Escape character: Ctrl-\ (ASCII 28, FS): enabled
+Type the escape character followed by C to get back,
+or followed by ? to see other options.
+----------------------------------------------------
+AT
+OK
+

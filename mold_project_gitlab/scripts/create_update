@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+work_dir=`pwd`
+update_dir=`mktemp -d`
+src_dir=`dirname "$0"`
+mkdir $update_dir/lib $update_dir/bin
+cp -v mold/libmold.so wolf/libwolf.so $update_dir/lib
+cp -v mold/mold $update_dir/bin
+cp -v $src_dir/../mold/gui/stylesheets/stylesheet.qss $update_dir
+#mkdir $update_dir/translations
+#cp -v mold/mold_de.qm $update_dir/translations
+
+cd $update_dir
+tar -cf update.tar ./*
+pxz update.tar
+cp -v update.tar.xz $work_dir
+rm -r $update_dir
+echo "success"
+cd $work_dir
+ls -lisah update.tar.xz
+

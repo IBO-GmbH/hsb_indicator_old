@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ParticlesForm</class>
+ <widget class="QWidget" name="ParticlesForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>320</width>
+    <height>240</height>
+   </rect>
+  </property>
+  <widget class="mold::RoomHeaderForm" name="header" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>320</width>
+     <height>80</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="mold::InvisibleClickableButton" name="myLovelyButton">
+   <property name="geometry">
+    <rect>
+     <x>255</x>
+     <y>175</y>
+     <width>70</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">PushButton</string>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="mold::StatusBarForm" name="statusBar" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>215</y>
+     <width>320</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QWidget" name="pm10" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>90</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="pm10Value">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>30</y>
+      <width>90</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pm10Label">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>0</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">PM10</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="pm2p5" native="true">
+   <property name="geometry">
+    <rect>
+     <x>115</x>
+     <y>70</y>
+     <width>90</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="pm2p5Value">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>30</y>
+      <width>90</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pm2p5Label">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>0</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">PM2.5</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="pm1" native="true">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>70</y>
+     <width>90</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="pm1Value">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>30</y>
+      <width>90</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pm1Label">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>0</y>
+      <width>80</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">PM1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="unitParticles">
+   <property name="geometry">
+    <rect>
+     <x>135</x>
+     <y>160</y>
+     <width>50</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">µg/m³</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>mold::InvisibleClickableButton</class>
+   <extends>QPushButton</extends>
+   <header>gui/InvisibleClickableButton.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>mold::StatusBarForm</class>
+   <extends>QWidget</extends>
+   <header>gui/StatusBarForm.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>mold::RoomHeaderForm</class>
+   <extends>QWidget</extends>
+   <header>gui/RoomHeaderForm.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

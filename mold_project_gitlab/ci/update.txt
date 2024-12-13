@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"
+
+curl --show-error --fail {url}/update.tar.xz -o update.tar.xz
+curl --show-error --fail {url}/update.tar.xz.sha1 -o update.tar.xz.sha1
+sha1sum -c update.tar.xz.sha1
+xz -d update.tar.xz
+cd ..
+tar -xf update/update.tar --strip 1
