@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sshfs -p 20022 -o no_readahead -o sync_readdir mlanner@mlanner-pc3.local:/home/mlanner/Development/cpp/projects/fastviewer/build-wolf dev
+

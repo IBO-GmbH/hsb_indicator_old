@@ -1,0 +1,90 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CLEANUP=$SCRIPT_DIR/../cleanup_persistent_dirs
+
+export LOG_PERSISTENT_DIR=/var/log/test_cleanup
+mkdir -p $LOG_PERSISTENT_DIR
+rm -rf $LOG_PERSISTENT_DIR/*
+
+
+# create 200kb of flat files
+i=0
+while [ $i -lt 4 ]
+do
+    head -c 50000 </dev/urandom >$LOG_PERSISTENT_DIR/file$i
+    sleep 0.1
+    ((i++))
+done
+
+# create 20kb in a subdirectory
+mkdir -p $LOG_PERSISTENT_DIR/subdir
+i=0
+while [ $i -lt 2 ]
+do
+    head -c 10000 </dev/urandom >$LOG_PERSISTENT_DIR/subdir/file$i
+    sleep 0.1
+    ((i++))
+done
+
+# create another 40kb of flat files
+i=10
+while [ $i -lt 14 ]
+do
+    head -c 10000 </dev/urandom >$LOG_PERSISTENT_DIR/file$i
+    sleep 0.1
+    ((i++))
+done
+
+# perform cleanup
+# we now have a total of 10 files with around 260kb
+CHECK=$(find $LOG_PERSISTENT_DIR -type f | wc -l)
+# check number of files
+if [ ! $CHECK -eq 10 ]
+then
+    echo "Initial check of number of files failed ($CHECK)"
+    exit 1
+fi
+
+# let's remove the oldest file
+export LOG_PERSISTENT_MAX_BYTES=250000
+$CLEANUP || (echo "test_cleanup Failed to cleanup" && exit 1)
+
+# check number of files
+CHECK=$(find $LOG_PERSISTENT_DIR -type f | wc -l)
+if [ ! $CHECK -eq 9 ]
+then
+    echo "Check of number of files failed . Expected 9 got $CHECK"
+    exit 1
+fi
+
+# the oldest file should have been removed
+CHECK=$(ls $LOG_PERSISTENT_DIR/file0 2>/dev/null)
+if [ ! -z "$CHECK" ]
+then
+    echo "File still exists $CHECK"
+    exit 1
+fi
+
+# remove so many files that the directory should go away, too
+export LOG_PERSISTENT_MAX_BYTES=60000
+$CLEANUP || (echo "test_cleanup Failed to cleanup" && exit 1)
+
+# check number of files
+CHECK=$(find $LOG_PERSISTENT_DIR -type f | wc -l)
+if [ ! $CHECK -eq 4 ]
+then
+    echo "Check of number of files failed . Expected 4 got $CHECK"
+    exit 1
+fi
+
+# only four files should exists
+# those are file10...file14
+CHECK=$(ls $LOG_PERSISTENT_DIR | grep -v -e "file10" -e "file11" -e "file12" -e "file13")
+if [ ! -z "$CHECK" ]
+then
+    echo "File still exists $CHECK"
+    exit 1
+fi
+
+echo "test_cleanup finished successfully"

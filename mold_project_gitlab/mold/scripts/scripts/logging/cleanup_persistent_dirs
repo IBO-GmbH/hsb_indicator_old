@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Checks if the log directory disk usage is too high and if yes, deletes the oldest files and directories in there.
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $SCRIPT_DIR/log_environment
+
+# If cleanup fails, just log. Do not let the script fail since that would stop the cronjobs
+# Usually, failure should be intermittent (e.g. log files just being copied)
+$SCRIPT_DIR/delete_oldest_files $LOG_PERSISTENT_DIR $LOG_PERSISTENT_MAX_BYTES || \
+    (echo "Error cleanup persistent directory $LOG_PERSISTENT_DIR failed with $?" | $SCRIPT_DIR/to_system_log)
+
+$SCRIPT_DIR/delete_oldest_files $LOG_UPLOAD_DIR $LOG_UPLOAD_MAX_BYTES || \
+    (echo "Error cleanup persistent directory $LOG_UPLOAD_DIR failed with $?" | $SCRIPT_DIR/to_system_log)

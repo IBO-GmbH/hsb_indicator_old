@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MoldValuesForm</class>
+ <widget class="QWidget" name="MoldValuesForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>320</width>
+    <height>125</height>
+   </rect>
+  </property>
+  <widget class="QWidget" name="temperature" native="true">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>25</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="indoorTemperature">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>35</y>
+      <width>80</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="indoorTemperatureDecimal">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>60</y>
+      <width>20</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="unitDegree0">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>35</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">°C</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="symbolTemperature" native="true">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>0</y>
+      <width>35</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/settings/icons/indoor.svg);</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="humidity" native="true">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>25</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="symbolHumidity" native="true">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>0</y>
+      <width>35</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/settings/icons/humidity.svg);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="indoorHumidity">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>35</y>
+      <width>80</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="unitPercent">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>35</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">%</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="outdoor" native="true">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>25</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <widget class="QWidget" name="symbolOutdoor" native="true">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>0</y>
+      <width>35</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/settings/icons/outdoor.svg);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="unitDegree1">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>35</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">°C</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="outdoorHumiditySmall">
+    <property name="geometry">
+     <rect>
+      <x>25</x>
+      <y>80</y>
+      <width>70</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="outdoorTemperatureDecimal">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>60</y>
+      <width>20</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="outdoorTemperature">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>35</y>
+      <width>80</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="mold::MoldValueProgressWidget" name="progressBar" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>1</y>
+     <width>320</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="Line" name="space">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>320</width>
+     <height>1</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="valveSettings">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>25</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>mold::MoldValueProgressWidget</class>
+   <extends>QWidget</extends>
+   <header>gui/MoldValueProgressWidget.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

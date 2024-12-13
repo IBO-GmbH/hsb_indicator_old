@@ -1,0 +1,11 @@
+/CMakeLists.txt.user
+#Clima_*.h
+#Clima_*.cpp
+cmdargs.tmp
+.directory
+*.autosave
+*.swp
+/install
+.vscode/
+/CMakeLists.txt.user.4.8-pre1
+

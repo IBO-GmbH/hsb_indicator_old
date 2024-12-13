@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sshfs -p 20022 -o no_readahead -o sync_readdir mlanner@mlanner-kubuntu.local:/home/mlanner/Development/cpp/projects/wolf/build-wolf-rpi_4_8-Default dev
+

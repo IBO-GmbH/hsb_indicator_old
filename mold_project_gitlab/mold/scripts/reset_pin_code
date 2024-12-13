@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+sqlite3 database.db "delete from mold_options where key = 'protection_pin';"
+
