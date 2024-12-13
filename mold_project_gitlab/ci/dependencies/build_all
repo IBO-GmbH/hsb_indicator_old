@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -x
+
+ls -lisah /opt/base_image/
+cd /opt/base_image/
+#unzip base.img.zip
+#mv -v *raspbian* base.img
+fdisk -l ./base.img
+
+mount -o loop -o offset=70254592 -o ro ./base.img /mnt
+ls -lisah /mnt
+
+cd /opt
+
+export core_count=`grep -c ^processor /proc/cpuinfo`
+
+./build_boost
+
+

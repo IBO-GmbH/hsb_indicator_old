@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -z ${BUILD_TYPE+x} ]; then BUILD_TYPE="Debug"; fi
+echo "build type:$BUILD_TYPE"
+
+set -ex
+cd "$(dirname "$0")"
+script_dir="$(pwd)"
+cd $(git rev-parse --show-toplevel)/..
+
+$script_dir/make_build.d --buildType $BUILD_TYPE

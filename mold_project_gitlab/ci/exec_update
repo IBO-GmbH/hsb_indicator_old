@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "$1" ]; then
+  echo "missing URL parameter"
+  exit 1
+fi
+
+UPLOAD_URL=$1
+
+script_dir="$(realpath "$(dirname "$0")")"
+src_dir=`pwd`
+
+UPDATE_ARCHIVE="update.tar"
+
+VERSION=$(head -1 ./install/mold_version.txt | tr -d '\n' | tr -d '\r')
+
+echo "CI_COMMIT_TAG: ${CI_COMMIT_TAG}"
+if [ -z ${CI_COMMIT_TAG+x} ]; then 
+ TYPE=1
+else
+ TYPE=0
+fi
+
+UPLOAD_URL_COMBINED="${UPLOAD_URL}/version/${VERSION}/${TYPE}"
+
+echo "version: ${VERSION}"
+echo "UPDATE_ARCHIVE: ${UPDATE_ARCHIVE}"
+echo "UPLOAD_URL: ${UPLOAD_URL}"
+echo "UPLOAD_URL_COMBINED: ${UPLOAD_URL_COMBINED}"
+
+$script_dir/exec_create_update ${UPDATE_ARCHIVE}
+
+echo "uploading $UPDATE_ARCHIVE with version: ${VERSION} and type: ${TYPE}"
+curl --show-error -v --fail -X POST -H "Content-Type: multipart/form-data" -F file=@"${UPDATE_ARCHIVE}" ${UPLOAD_URL_COMBINED}
+
+rm -v $UPDATE_ARCHIVE

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+nohup bash -c "sleep 10; sudo reboot" > /dev/null 2>&1 &
+

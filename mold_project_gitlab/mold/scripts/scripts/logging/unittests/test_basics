@@ -1,0 +1,123 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+export LOG_IDENTIFIER=unittest_$RANDOM
+export LOG_TEMP_DIR=/var/log/unittest/temp
+export LOG_PERSISTENT_DIR=/var/log/unittest/persistent
+export LOG_SAVE_PRIO_FILTER=$LOG_IDENTIFIER
+
+rm -rf $LOG_TEMP_DIR
+rm -rf $LOG_PERSISTENT_DIR
+mkdir -p $LOG_TEMP_DIR
+mkdir -p $LOG_PERSISTENT_DIR
+
+$SCRIPT_DIR/../save_high_priority_logs
+
+# persistent priority log dir should be empty
+CHECK=$(ls $LOG_PERSISTENT_DIR)
+if [ ! -z "$CHECK" ]
+then
+    echo test_basics Persistent log directory not empty although no log entries have been written
+    exit 1
+fi
+
+
+LOG_SCRIPT=$SCRIPT_DIR/../to_system_log
+echo This is a normal log entry | $LOG_SCRIPT
+echo Warning This is a warning log entry | $LOG_SCRIPT
+echo Error This is an error log entry | $LOG_SCRIPT
+echo Verbose This is a debug log entry | $LOG_SCRIPT
+echo Critical This is a critical log entry | $LOG_SCRIPT
+
+CHECK=$(journalctl -t $LOG_IDENTIFIER -n 1 -p info..info -q | grep "This is a normal log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Could not find normal log entry $CHECK
+    exit 1
+fi
+
+CHECK=$(journalctl -t $LOG_IDENTIFIER -n 1 -p warning..warning -q | grep "This is a warning log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Could not find warning log entry $CHECK
+    exit 1
+fi
+
+CHECK=$(journalctl -t $LOG_IDENTIFIER -n 1 -p err..err -q | grep "This is an error log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Could not find warning log entry $CHECK
+    exit 1
+fi
+
+CHECK=$(journalctl -t $LOG_IDENTIFIER -n 1 -p debug..debug -q | grep "This is a debug log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Could not find warning log entry $CHECK
+    exit 1
+fi
+
+CHECK=$(journalctl -t $LOG_IDENTIFIER -n 1 -p crit..crit -q | grep "This is a critical log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Could not find critical log entry $CHECK
+    exit 1
+fi
+
+$SCRIPT_DIR/../save_high_priority_logs
+
+# persistent priority log dir should not be empty
+CHECK=$(ls $LOG_PERSISTENT_DIR)
+if [ -z "$CHECK" ]
+then
+    echo test_basics Persistent log directory empty although log entries have been written
+    exit 1
+fi
+
+# persistent priority log should not contain non-priority items
+FILE=$LOG_PERSISTENT_DIR/$CHECK
+CHECK=$(cat $FILE | grep "This is a normal log entry")
+if [ ! -z "$CHECK" ]
+then
+    echo test_basics Normal log entry has been written in persistent log $CHECK
+    exit 1
+fi
+
+CHECK=$(cat $FILE | grep "This is a warning log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Warning log entry has not been written in persistent log $CHECK
+    exit 1
+fi
+
+CHECK=$(cat $FILE | grep "This is an error log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Error log entry has not been written in persistent log $CHECK
+    exit 1
+fi
+
+CHECK=$(cat $FILE | grep "This is a debug log entry")
+if [ ! -z "$CHECK" ]
+then
+    echo test_basics Debug log entry has been written in persistent l $CHECK
+    exit 1
+fi
+
+CHECK=$(cat $FILE | grep "This is a critical log entry")
+if [ -z "$CHECK" ]
+then
+    echo test_basics Critical log entry has not been written in persistent log $CHECK
+    exit 1
+fi
+
+# temp log dir should be empty
+CHECK=$(ls $LOG_TEMP_DIR)
+if [ ! -z "$CHECK" ]
+then
+    echo test_basics Temporary log directory not empty
+    exit 1
+fi
+
+echo test_basics ran successfully

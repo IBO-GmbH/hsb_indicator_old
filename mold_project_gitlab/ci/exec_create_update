@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+if [ -z "$1" ]; then
+  echo "missing parameter"
+  exit 1
+fi
+
+update_archive=$1
+
+cd "$(dirname "$0")/.."
+
+src_dir=`pwd`
+updates_dir=$src_dir/updates/
+
+tar -cf update.tar install/*
+xz update.tar
+sha1sum update.tar.xz > update.tar.xz.sha1
+
+cp ${src_dir}/ci/update.txt ${src_dir}
+
+tar -cf $update_archive update.tar.xz update.tar.xz.sha1 update.txt
+rm update.tar.xz
+rm update.tar.xz.sha1
+
+mkdir -p $updates_dir
+cp $update_archive $updates_dir

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+
+source enviroment
+
+date
+until ./bin/gsm_confirmation $@; do
+  echo "gsm_confirmation stopped with code $?. Restarting in one second."
+  date
+  sleep 1
+done
+
+

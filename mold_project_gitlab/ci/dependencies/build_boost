@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -ex
+
+cd /opt/boost
+
+mkdir -p build install
+# pbzip2 -d boost.tar.bz2
+tar -xf boost.tar
+cd boost_*
+./bootstrap.sh
+
+./b2 toolset=gcc-linaroarmhf --build-dir=/opt/boost/build --prefix=/opt/boost/install --layout=tagged --without-python --without-mpi --without-wave --without-graph --without-graph_parallel --without-signals link=shared threading=multi -a -s NO_BZIP2=1 -s ZLIB_INCLUDE=/mnt/usr/include/ -s ZLIB_BINARY=/mnt/usr/lib/arm-linux-gnueabihf/libz.so debug release -j $core_count
+./b2 install -j $core_count
+
+
+

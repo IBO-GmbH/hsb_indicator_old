@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -ex
+
+qt_file_name=qt-everywhere-src-5.11.3
+qt_file_compressed_name="$qt_file_name.tar.xz"
+if [ ! -f "$qt_file_compressed_name" ]; then
+  rm -rf qt_src
+  curl -LO "https://download.qt.io/official_releases/qt/5.11/5.11.3/single/$qt_file_compressed_name"
+fi
+if [ ! -d qt_src ]; then
+  tar -xf "$qt_file_compressed_name"
+  mv "$qt_file_name" qt_src
+fi
+rm -rf qt_build
+mkdir qt_build
+cd qt_build
+export MAKEFLAGS="-j $(grep -c ^processor /proc/cpuinfo)"
+qt_platform='linux-rasp-pi-g++'
+compiler_bin_releative_dir='../../dependencies/compiler_a6e2a736/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin'
+compiler_bin_dir="$(realpath "$compiler_bin_releative_dir")/arm-linux-gnueabihf-"
+sysroot_relative_dir='../../dependencies/image_2e12c62e/mnt_root/'
+sysroot_dir="$(realpath "$sysroot_relative_dir")"
+
+../qt_src/configure \
+  -confirm-license \
+  -no-compile-examples \
+  -opensource \
+  -release \
+  -device "$qt_platform" \
+  -prefix /qt5 \
+  -device-option CROSS_COMPILE="$compiler_bin_dir" \
+  -sysroot "$sysroot_dir" \
+  -skip location \
+  -no-icu
+
+# `-skip location` because of compile qt issue. Revaluate after release of qt-5.12.1 Then raise version from 5.11.3 to 5.12
+# https://bugreports.qt.io/browse/QTBUG-71945
+# `-no-icu` because of compiler bug issue. Revaluate after compiler update.
+# https://github.com/raspberrypi/tools/issues/41
+
+make
+

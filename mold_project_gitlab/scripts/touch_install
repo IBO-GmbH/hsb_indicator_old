@@ -1,0 +1,4 @@
+#!/bin/bash
+
+apt-get install evtest libts-bin libts-dev
+
