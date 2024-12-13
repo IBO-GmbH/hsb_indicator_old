@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -ex
+cd "$(dirname "$0")"
+cd ../..
+
+if [ -f $target/SUCCESS ]; then
+  echo "skipping getting $target"
+  exit 0
+fi
+
+mkdir -p $target
+rm -rf $target/*
+cd $target
+curl -Ls -w "download $target total: %{time_total} sec\n" -O $DEPENDENCY_SERVER/$target.tpxz
+pixz -d $target.tpxz
+tar -x --strip-components=1 -f $target.tar
+rm -v $target.tar
+touch SUCCESS

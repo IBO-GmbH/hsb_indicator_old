@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# This should be run at regular intervals (i.e. every hour
+# Picks all files from the persistent log directory, compresses them and moves them to the upload directory
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $SCRIPT_DIR/log_environment
+
+# find all files which are newer than the upload directory
+FILES=$(cd $LOG_PERSISTENT_DIR && find . -mindepth 1 -maxdepth 1 -name "*" -cnewer $LOG_UPLOAD_DIR | cut -c 3-)
+
+cd $LOG_PERSISTENT_DIR
+for f in $FILES
+do
+    tar -zcvf $LOG_UPLOAD_DIR/$f.tar.gz $f
+done
+

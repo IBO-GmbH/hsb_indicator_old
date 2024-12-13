@@ -1,0 +1,43 @@
+events:Actor
+rpi:Gateway[a]
+web:Cloud[a]
+webfront:Actor
+
+rpi:=web.Login. Includes Gateway Id
+[cFirst time Startup (empty db)]
+  rpi:=web.esp3 outdoor sensor initialization
+  rpi:=web.start up configuration (room set by parameters)
+[/c]
+events:=rpi.sensor data
+#[cSensor data accepted]
+  rpi:=web.SensorData
+#[/c]
+# [cRoom added]
+  events:=rpi.addRoom
+  rpi:=web.SensorInitialization
+  rpi:=web.Configuration
+# [/c]
+events:=rpi.updateRoom/updateOutdoorSensor
+rpi:=web.SensorInitialization
+rpi:=web.Configuration
+
+events:=rpi.removeRoom
+rpi:=web.removeConfiguration
+
+webfront:=web.changeRoomName
+web:=rpi.Configuration
+
+events:=rpi.moldColorChanges (green,yellow,red)
+rpi:=web.state
+
+webfront:=web.script
+web:=rpi.sendAndExecuteScript
+*3 rpi
+sometime restart in 10 seconds
+*3
+
+events:=rpi.building type changed
+rpi:=web.Gateway settings
+
+webfront:=web.building type changed
+web:=rpi.Gateway settings

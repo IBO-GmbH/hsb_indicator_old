@@ -1,0 +1,4 @@
+#!/bin/bash
+cd "$(dirname "$0")"
+dd if=splash.raw of=/dev/fb1
+

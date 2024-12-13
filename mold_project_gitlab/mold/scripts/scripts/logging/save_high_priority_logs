@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# this is supposed to be called every 60 minutes, and will save the last 80 minutes
+# if you want to change that behaviour, set LOG_SAVE_PRIO_SINCE to another value e.g. "120m"
+# by default, all log entries are saved. you can set LOG_SAVE_PRIO_FILTER to filter by an identity
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+source $SCRIPT_DIR/log_environment
+
+# we perform the cleanup in advance on purpose. if a single logfile is larger than the limit we still have a chance to catch it,
+# because it will stay until the next run of this script.
+$SCRIPT_DIR/cleanup_persistent_dirs
+
+FILENAME=journal_$(date -u +%Y-%m-%d_%H%M%S).log
+
+# Create persistent log directory
+mkdir -p $LOG_PERSISTENT_DIR
+mkdir -p $LOG_TEMP_DIR
+
+if [ ! -z "$LOG_SAVE_PRIO_FILTER" ]
+then
+    # We use grep instead of -t, because -t is not available on debian jessie
+    FILTER="| grep -e ' $LOG_IDENTIFIER[' -F --color=never"
+fi
+# save everything with priority >= notice
+journalctl -o short-iso -p 4 --since -$LOG_SAVE_PRIO_SINCE $FILTER > $LOG_TEMP_DIR/$FILENAME
+
+# if log actually has entries, copy over to persistent
+if [ -s $LOG_TEMP_DIR/$FILENAME ]
+then
+  mv $LOG_TEMP_DIR/$FILENAME $LOG_PERSISTENT_DIR/$FILENAME
+else
+  rm $LOG_TEMP_DIR/$FILENAME
+fi
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_FBDEVICE=/dev/fb1
+ts_calibrate
+
+

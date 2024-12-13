@@ -1,0 +1,45 @@
+#!/bin/bash
+
+source /opt/mold/scripts/logging/logger
+
+# start wpa_supplicant with correct config
+#killall -v wpa_supplicant
+#wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf                       
+
+# rename
+output=$(export LOG_IDENTIFIER=mold.rename; \
+ /root/rename 2> >(log_error) | log;
+   exit ${PIPESTATUS[0]})
+if [ $? -eq 0 ]
+then
+  exit 0
+fi
+
+if [ -f "/root/register" ]
+then
+  (export LOG_IDENTIFIER=mold.register; \
+   export LOG_DEFAULT_PRIORITY=notice; \
+   /root/register 2> >(log_error) | tee register.log | log
+   exit ${PIPESTATUS[0]})
+fi
+
+if [ -f "/root/gsm_enabled" ]
+then
+  if [ -f "/root/gsm_confirmation_required" ]
+  then
+    # gsm confirmation
+    (export LOG_IDENTIFIER=mold.gsm_confirmation; \
+     /opt/mold/exec-gsm_confirmation 2> >(log_error) | log;
+     exit ${PIPESTATUS[0]})
+  fi
+
+  # gsm m95 work arounds
+  (export LOG_IDENTIFIER=mold.gsm_mux; \
+   /opt/mold/exec-gsm_mux 2> >(log_error) | log;
+   exit ${PIPESTATUS[0]}) &
+fi
+
+# show splash screen
+(export LOG_IDENTIFIER=mold.splash; \
+ /root/display_splash_screen 2> >(log_error) | log;
+   exit ${PIPESTATUS[0]})

@@ -1,0 +1,51 @@
+Apt update
+Apt upgrade
+
+Raspi-config, serielle schnittstelle console abschalten
+
+Apt install wiringpi
+Apt install minicom
+
+Folgende commands sind in test.sh, vorher sudo -i
+Gpio mode 16 out
+Gpio write 16 0
+Gpio write 16 1
+Gpio write 16 0
+
+# Change to root user
+sudo -i
+
+# Load option driver
+modprobe option
+
+# https://bacnh.com/quectel-linux-usb-drivers-troubleshooting/
+# Add new ID to option driver
+# echo "$VID $PID" > /sys/bus/usb-serial/drivers/option1/new_id 
+echo "2c7c 0700" > /sys/bus/usb-serial/drivers/option1/new_id 
+
+Check ob ttyUSB* da sind mit ls /dev/ttyU*
+
+
+Modem Treiber mit PPP von Sixfab
+Beschreibung hier: https://docs.sixfab.com/page/setting-up-the-ppp-connection-for-sixfab-shield-hat
+
+wget https://raw.githubusercontent.com/sixfab/Sixfab_PPP_Installer/master/ppp_install_standalone.sh
+sudo chmod +x ppp_install_standalone.sh
+sudo ./ppp_install_standalone.sh
+
+option 2 auswählen, im install script
+
+APN = m2m.business
+Kein user/passwort
+
+Schnittstelle ttyUSB2
+
+Datei /etc/rc.local folgendes einfügen:
+sudo gpio mode 16 out
+sudo gpio write 16 0
+sudo gpio write 16 1
+sleep 1
+sudo gpio write 16 0
+sleep 2
+sudo modprobe option
+sudo echo "2c7c 0700" > /sys/bus/usb-serial/drivers/option1/new_id

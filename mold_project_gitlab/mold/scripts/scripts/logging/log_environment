@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# This sets default settings for logging, if not already set.
+
+# Default log priority, if no priority is given
+if [ -z "$LOG_DEFAULT_PRIORITY" ]
+then
+    export LOG_DEFAULT_PRIORITY=info
+fi
+
+# Directory where logs persist a reboot.
+if [ -z "$LOG_PERSISTENT_DIR" ]
+then
+    export LOG_PERSISTENT_DIR=/var/log/mold
+fi
+mkdir -p $LOG_PERSISTENT_DIR
+
+# Directory for logs queued to be uploaded
+if [ -z "$LOG_UPLOAD_DIR" ]
+then
+    export LOG_UPLOAD_DIR=/var/log/mold_upload
+fi
+mkdir -p $LOG_UPLOAD_DIR
+
+# URL where uploads should be posted to. This doesn't include the protocol, as this is parsed from configuration later
+if [ -z "$LOG_UPLOAD_URL" ]
+then
+    export LOG_UPLOAD_URL='$LOG_ENDPOINT/logupload?box_id=$LOG_BOX_ID&secret=$LOG_BOX_SECRET'
+fi
+
+# Maximum number of bytes in persistent log directory
+if [ -z "$LOG_PERSISTENT_MAX_BYTES" ]
+then
+    export LOG_PERSISTENT_MAX_BYTES=50000000 # 50MB
+fi
+
+# Maximum number of bytes in upload directory
+if [ -z "$LOG_UPLOAD_MAX_BYTES" ]
+then
+    export LOG_UPLOAD_MAX_BYTES=50000000 # 50MB
+fi
+
+# Temporary directory utilized during saving of logs
+if [ -z "$LOG_TEMP_DIR" ]
+then
+    export LOG_TEMP_DIR=/run/log/mold
+fi
+mkdir -p $LOG_TEMP_DIR
+
+# Default application identifier
+if [ -z "$LOG_IDENTIFIER" ]
+then
+    export LOG_IDENTIFIER=mold.generic
+fi
+
+# Logs will be saved every 60 minutes by default, and this controls how far back in time the log
+# records are saved. By default, we set some overlap.
+if [ -z "$LOG_SAVE_PRIO_SINCE" ]
+then
+    export LOG_SAVE_PRIO_SINCE=70m
+fi
+
+# Number of log records which are saved if an application crashes (save_crash_logs)
+if [ -z "$LOG_CRASH_NUMBER_OF_RECORDS" ]
+then
+    export LOG_CRASH_NUMBER_OF_RECORDS=100
+fi
+

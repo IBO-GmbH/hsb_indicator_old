@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NumberHumidity</class>
+ <widget class="QWidget" name="NumberHumidity">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>90</width>
+    <height>85</height>
+   </rect>
+  </property>
+  <widget class="QLabel" name="unitPercentLearn">
+   <property name="geometry">
+    <rect>
+     <x>75</x>
+     <y>35</y>
+     <width>15</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">%</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>35</x>
+     <y>0</y>
+     <width>35</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/settings/icons/humidity.svg);</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="indoorHumidityLearn">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>35</y>
+     <width>75</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">--</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
