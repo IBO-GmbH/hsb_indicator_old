@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-#include "lv_i18n/src/lv_i18n.h"
 #include "lvgl/lvgl.h"
 #include "ui_events.h"
 #include "ui_helpers.h"
