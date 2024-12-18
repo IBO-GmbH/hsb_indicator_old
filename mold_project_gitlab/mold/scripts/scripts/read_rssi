@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [ -e "/opt/mold/rssi_m95" ]
-then
-  cat "/opt/mold/rssi_m95"
-  exit 0
-fi
-
-exit 1

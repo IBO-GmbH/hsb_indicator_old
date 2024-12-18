@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -e
-
-cd "$(dirname "$0")"
-docker build -t gitlab.linkbit.io:25000/mold/mold/ci/test:v1 .

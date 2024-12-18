@@ -1,6 +1,0 @@
-#!/bin/bash
-
-rm -fv gsm_confirmed
-rm -rfv database.db*
-rm -rfv /var/log/mold*
-
