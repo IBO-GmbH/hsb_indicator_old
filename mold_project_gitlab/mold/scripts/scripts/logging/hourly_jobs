@@ -1,8 +1,0 @@
-#!/bin/bash
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source $SCRIPT_DIR/logger
-
-export LOG_IDENTIFIER=mold.logging
-$SCRIPT_DIR/save_high_priority_logs | log
-$SCRIPT_DIR/get_logs_for_upload | log
-$SCRIPT_DIR/upload_logs | log
