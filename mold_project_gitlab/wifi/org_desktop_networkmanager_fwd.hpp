@@ -1,9 +1,0 @@
-#ifndef ORG_DESKTOP_NETWORKMANAGER_FWD_HPP
-#define ORG_DESKTOP_NETWORKMANAGER_FWD_HPP
-
-class OrgFreedesktopNetworkManagerInterface;
-class OrgFreedesktopNetworkManagerDeviceWirelessInterface;
-class OrgFreedesktopNetworkManagerAccessPointInterface;
-class OrgFreedesktopNetworkManagerDeviceInterface;
-
-#endif  // ORG_DESKTOP_NETWORKMANAGER_FWD_HPP

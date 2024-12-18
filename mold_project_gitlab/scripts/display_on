@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo 0 | sudo tee /sys/class/backlight/*/bl_power
-
