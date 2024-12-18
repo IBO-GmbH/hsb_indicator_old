@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd "$(dirname "$0")"
-docker build -t gitlab.linkbit.io:25000/linkbit/mold/ci/build:v4 build

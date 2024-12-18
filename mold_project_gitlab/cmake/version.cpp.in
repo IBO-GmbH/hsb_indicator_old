@@ -1,7 +1,0 @@
-#include "mold/version.hpp"
-
-using namespace mold;
-
-std::string version::get_string() { return "@MOLD_VERSION@"; }
-
-std::string version::get_commit_hash() { return "@GIT_COMMIT_HASH@"; }
