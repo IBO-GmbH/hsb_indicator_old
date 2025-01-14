@@ -14,22 +14,22 @@
 #endif
 #endif
 // source files
-#include "flash_controller.h"
+#include "flash_manager.h"
 #include "sntp_service.h"
-//#include "uart_handler.h"
-#include "wifi_handler.h"
+// #include "uart_handler.h"
+#include "wifi_manager.h"
 
 #define READ_PRIORITY (configMAX_PRIORITIES - 1)
 
 static const char *TAG = "app_main";
 
-//uart_handler uart_handler_;
-Wifi_handler wifi_handler;
+// uart_handler uart_handler_;
+Wifi_manager wifi_manager;
 Sntp_service sntp;
 
 static void read_uart_task(void *arg) {
   while (1) {
-    //uart_handler_.read_from_sensor();
+    // uart_handler_.read_from_sensor();
   }
 }
 
@@ -42,18 +42,18 @@ static void print_test_task(void *arg) {
 
 void scan_wifi() {
   std::array<wifi_ap_record_t, (size_t)DEFAULT_SCAN_LIST_SIZE> scan_res;
-  while (wifi_handler.scan(scan_res) != ESP_OK) {
+  while (wifi_manager.scan(scan_res) != ESP_OK) {
     ESP_LOGI(TAG, "Scan failed. Wait and try again");
     vTaskDelay(1000 / portTICK_PERIOD_MS);  // 1 s delay
   };
-  wifi_handler.log_ap_info(scan_res);
+  wifi_manager.log_ap_info(scan_res);
 }
 
 extern "C" void app_main() {
   ESP_ERROR_CHECK(bsp_board_init());
 
   // init internal Flash
-  Flash_controller memory;
+  Flash_manager memory;
   memory.init();
 
   // init display functionality
@@ -64,9 +64,12 @@ extern "C" void app_main() {
   ESP_ERROR_CHECK(esp_event_loop_create_default());
 
   // init WIFI and esablish a connection to the AP set in the credentials
-  ESP_ERROR_CHECK(wifi_handler.init_sta());
-  ESP_ERROR_CHECK(wifi_handler.connect_to_wifi());
-  //ESP_LOGI(TAG, "SSID: %s", INIT_WIFI_SSID);
+  ESP_ERROR_CHECK(wifi_manager.init_sta());
+#if defined INIT_WIFI_SSID && defined INIT_WIFI_PASSWORD
+  ESP_ERROR_CHECK(
+      wifi_manager.set_ssid_and_pw(INIT_WIFI_SSID, INIT_WIFI_PASSWORD));
+  ESP_ERROR_CHECK(wifi_manager.connect_to_wifi());
+#endif
 
   // start SNTP service
   ESP_ERROR_CHECK(sntp.init());

@@ -1,10 +1,10 @@
-#include "flash_controller.h"
+#include "flash_manager.h"
 
-Flash_controller::Flash_controller() : m_tag("flash_controller") {}
+Flash_manager::Flash_manager() : m_tag("flash_manager") {}
 
-Flash_controller::~Flash_controller() = default;
+Flash_manager::~Flash_manager() = default;
 
-esp_err_t Flash_controller::init() {
+esp_err_t Flash_manager::init() {
   esp_err_t ret = nvs_flash_init();
   if (ret == ESP_ERR_NVS_NO_FREE_PAGES ||
       ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {

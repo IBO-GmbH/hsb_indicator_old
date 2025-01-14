@@ -14,7 +14,7 @@ TEST_F(WifiTest, Sntp) {
   sntp_sync_status_t sntp_status;
   Sntp_service sntp;
 
-  EXPECT_EQ(m_wifi_handler.connect_to_wifi(), ESP_OK)
+  EXPECT_EQ(m_wifi_manager.connect_to_wifi(), ESP_OK)
       << "Wifi connection could not be established";
 
   std::tm build_time_tm{};

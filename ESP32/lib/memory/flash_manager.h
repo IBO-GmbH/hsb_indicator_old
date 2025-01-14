@@ -1,5 +1,5 @@
-#ifndef FLASH_CONTROLLER_H
-#define FLASH_CONTROLLER_H
+#ifndef FLASH_MANAGER_H
+#define FLASH_MANAGER_H
 
 #pragma once
 
@@ -8,10 +8,10 @@
 
 #include "nvs_flash.h"
 
-class Flash_controller {
+class Flash_manager {
  public:
-  Flash_controller();
-  ~Flash_controller();
+  Flash_manager();
+  ~Flash_manager();
 
   esp_err_t init();
 

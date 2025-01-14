@@ -6,7 +6,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 // soure libaries
-#include "flash_controller.h"
+#include "flash_manager.h"
 // test libaries
 #include "test_wifi.h"
 // TEST(...)
@@ -22,7 +22,7 @@ extern "C" void app_main() {
       "*";  // e.g.: "DummyTest.ShouldPass", default = "*"
   ::testing::InitGoogleTest();
   ESP_ERROR_CHECK(bsp_board_init());
-  Flash_controller memory;
+  Flash_manager memory;
   memory.init();
   // create default event loop for wifi
   ESP_ERROR_CHECK(esp_event_loop_create_default());
