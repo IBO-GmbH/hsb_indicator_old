@@ -1,1 +1,0 @@
-#include "lv_i18n/src/lv_i18n.h"
