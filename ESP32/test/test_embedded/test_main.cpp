@@ -5,12 +5,10 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-// soure libaries
+// source libaries
 #include "flash_manager.h"
 // test libaries
 #include "test_wifi.h"
-// TEST(...)
-// TEST_F(...)
 
 static const char *TAG = "test_app_main";
 
@@ -29,6 +27,4 @@ extern "C" void app_main() {
   //
   if (RUN_ALL_TESTS()) {
   }
-
-  // test_wifi(0, NULL);
 }

@@ -16,22 +16,22 @@
 // source files
 #include "flash_manager.h"
 #include "sntp_service.h"
-// #include "uart_handler.h"
 #include "wifi_manager.h"
 
 #define READ_PRIORITY (configMAX_PRIORITIES - 1)
 
 static const char *TAG = "app_main";
 
-// uart_handler uart_handler_;
 Wifi_manager wifi_manager;
 Sntp_service sntp;
 
-static void read_uart_task(void *arg) {
+// TODO: enable when implemented
+/*static void read_uart_task(void *arg) {
   while (1) {
-    // uart_handler_.read_from_sensor();
+    // read from RP2040
   }
 }
+*/
 
 static void print_test_task(void *arg) {
   while (1) {
@@ -73,10 +73,4 @@ extern "C" void app_main() {
 
   // start SNTP service
   ESP_ERROR_CHECK(sntp.init());
-
-  // uart_handler_.init_uart();
-
-  // xTaskCreate(read_uart_task, "read_uart_task", 1024 * 6, NULL,
-  // READ_PRIORITY, NULL);
-  // lv_label_set_text_fmt(ui_temperatureLabel, "%.1f°C", 20.5);
 }
