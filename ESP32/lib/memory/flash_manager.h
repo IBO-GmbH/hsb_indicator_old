@@ -19,4 +19,4 @@ class Flash_manager {
   const std::string m_tag;
 };
 
-#endif  // FLASH_CONTROLLER_H
+#endif  // FLASH_MANAGER_H

@@ -69,4 +69,4 @@ class Wifi_manager {
   esp_netif_t *m_wifi_netif = NULL;
 };
 
-#endif  // WIFI_HANDLER_H
+#endif  // WIFI_MANAGER_H
