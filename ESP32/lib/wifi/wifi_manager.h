@@ -1,5 +1,5 @@
-#ifndef WIFI_HANDLER_H
-#define WIFI_HANDLER_H
+#ifndef WIFI_MANAGER_H
+#define WIFI_MANAGER_H
 
 #pragma once
 
@@ -21,10 +21,10 @@
 static uint8_t channel_list[CHANNEL_LIST_SIZE] = {1, 6, 11};
 #endif
 
-class Wifi_handler {
+class Wifi_manager {
  public:
-  Wifi_handler();
-  ~Wifi_handler();
+  Wifi_manager();
+  ~Wifi_manager();
 
   void event_handler(void *event_handler_arg, const esp_event_base_t event_base,
                      const int32_t event_id, const void *event_data);
@@ -61,7 +61,7 @@ class Wifi_handler {
                                    const int32_t event_id, void *event_data);
 
  private:
-  const std::string m_tag = "wifi_handler";
+  const std::string m_tag = "wifi_manager";
   std::string m_ssid = "";
   std::string m_password = "";
   uint8_t m_retry_num = 0;
@@ -69,4 +69,4 @@ class Wifi_handler {
   esp_netif_t *m_wifi_netif = NULL;
 };
 
-#endif  // WIFI_HANDLER_H
+#endif  // WIFI_MANAGER_H

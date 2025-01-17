@@ -6,8 +6,8 @@
 #include "gtest/gtest.h"
 
 //
-#include "flash_controller.h"
-#include "wifi_handler.h"
+#include "flash_manager.h"
+#include "wifi_manager.h"
 
 int test_wifi(int argc, char **argv);
 
@@ -24,7 +24,7 @@ class WifiTest : public testing::Test {
   void SetUp() override {
     // Code here will be called immediately after the constructor (right
     // before each test).
-    m_wifi_handler.init_sta();
+    m_wifi_manager.init_sta();
   }
 
   void TearDown() override {
@@ -36,7 +36,7 @@ class WifiTest : public testing::Test {
   }
   // variables
   //  init with default constructor
-  Wifi_handler m_wifi_handler;
+  Wifi_manager m_wifi_manager;
 };
 
 #endif  // TEST_WIFI_H

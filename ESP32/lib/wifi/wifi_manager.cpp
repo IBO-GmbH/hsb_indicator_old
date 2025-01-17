@@ -1,15 +1,15 @@
-#include "wifi_handler.h"
+#include "wifi_manager.h"
 
-Wifi_handler::Wifi_handler() {}
+Wifi_manager::Wifi_manager() {}
 
-Wifi_handler::~Wifi_handler() {
+Wifi_manager::~Wifi_manager() {
   esp_err_t ret = deinit();
   if (ret != ESP_OK && ret != ESP_ERR_WIFI_NOT_INIT) {
     ESP_ERROR_CHECK(ret);
   }
 }
 
-void Wifi_handler::event_handler(void *arg, const esp_event_base_t event_base,
+void Wifi_manager::event_handler(void *arg, const esp_event_base_t event_base,
                                  const int32_t event_id,
                                  const void *event_dat) {
   ESP_LOGI(m_tag.c_str(), "WIFI HANDLER CALLED %ld", event_id);
@@ -31,11 +31,11 @@ void Wifi_handler::event_handler(void *arg, const esp_event_base_t event_base,
   }
 }
 
-void Wifi_handler::event_handler_static(void *arg,
+void Wifi_manager::event_handler_static(void *arg,
                                         const esp_event_base_t event_base,
                                         const int32_t event_id,
                                         void *event_data) {
-  Wifi_handler *instance = static_cast<Wifi_handler *>(arg);
+  Wifi_manager *instance = static_cast<Wifi_manager *>(arg);
   if (instance) {
     instance->event_handler(arg, event_base, event_id, event_data);
   } else {
@@ -45,7 +45,7 @@ void Wifi_handler::event_handler_static(void *arg,
   }
 }
 
-esp_err_t Wifi_handler::init_sta() {
+esp_err_t Wifi_manager::init_sta() {
   ESP_ERROR_CHECK(esp_netif_init());
 
   // check if default event loop already exists and if not create it
@@ -65,22 +65,18 @@ esp_err_t Wifi_handler::init_sta() {
 
   //  add wifi event handlers
   ESP_ERROR_CHECK(esp_event_handler_register(
-      WIFI_EVENT, ESP_EVENT_ANY_ID, &Wifi_handler::event_handler_static, this));
+      WIFI_EVENT, ESP_EVENT_ANY_ID, &Wifi_manager::event_handler_static, this));
   ESP_ERROR_CHECK(
       esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP,
-                                 &Wifi_handler::event_handler_static, this));
+                                 &Wifi_manager::event_handler_static, this));
   ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
   ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
   ESP_ERROR_CHECK(esp_wifi_start());
 
-#if defined INIT_WIFI_SSID && defined INIT_WIFI_PASSWORD
-  set_ssid_and_pw(INIT_WIFI_SSID, INIT_WIFI_PASSWORD);
-#endif
-
   return ESP_OK;
 }
 
-esp_err_t Wifi_handler::deinit() {
+esp_err_t Wifi_manager::deinit() {
   esp_err_t ret = esp_wifi_disconnect();
   if (ret != ESP_OK) {
     return ret;
@@ -99,19 +95,19 @@ esp_err_t Wifi_handler::deinit() {
   return ret;
 }
 
-esp_err_t Wifi_handler::connect_to_wifi() const {
+esp_err_t Wifi_manager::connect_to_wifi() const {
   ESP_ERROR_CHECK(esp_wifi_disconnect());
   return esp_wifi_connect();
 }
 
-esp_err_t Wifi_handler::connect_to_wifi(const std::string_view ssid,
+esp_err_t Wifi_manager::connect_to_wifi(const std::string_view ssid,
                                         const std::string_view password) {
   ESP_ERROR_CHECK(esp_wifi_disconnect());
   set_ssid_and_pw(ssid, password);
   return esp_wifi_connect();
 }
 
-esp_err_t Wifi_handler::set_ssid_and_pw(const std::string_view ssid,
+esp_err_t Wifi_manager::set_ssid_and_pw(const std::string_view ssid,
                                         const std::string_view password) {
   if (ssid.length() > 32 - 1 || password.length() > 64 - 1) {
     ESP_LOGE(m_tag.c_str(), "Given SSID or password too long");
@@ -131,7 +127,7 @@ esp_err_t Wifi_handler::set_ssid_and_pw(const std::string_view ssid,
   return ESP_OK;
 }
 
-esp_err_t Wifi_handler::scan(std::span<wifi_ap_record_t> ap_info) const {
+esp_err_t Wifi_manager::scan(std::span<wifi_ap_record_t> ap_info) const {
   if (m_connecting) {
     return ESP_ERR_INVALID_STATE;
   }
@@ -166,7 +162,7 @@ esp_err_t Wifi_handler::scan(std::span<wifi_ap_record_t> ap_info) const {
   return ESP_OK;
 }
 
-void Wifi_handler::log_ap_info(
+void Wifi_manager::log_ap_info(
     const std::span<wifi_ap_record_t> ap_info) const {
   for (std::size_t record_index = 0; record_index < ap_info.size();
        record_index++) {
@@ -176,7 +172,7 @@ void Wifi_handler::log_ap_info(
   }
 }
 
-bool Wifi_handler::ssid_in_records(const std::span<wifi_ap_record_t> ap_info,
+bool Wifi_manager::ssid_in_records(const std::span<wifi_ap_record_t> ap_info,
                                    const std::string_view ssid) const {
   for (std::size_t record_index = 0; record_index < ap_info.size();
        ++record_index) {
@@ -196,7 +192,7 @@ bool Wifi_handler::ssid_in_records(const std::span<wifi_ap_record_t> ap_info,
 }
 
 #ifdef USE_CHANNEL_BTIMAP
-static void Wifi_handler::array_2_channel_bitmap(
+static void Wifi_manager::array_2_channel_bitmap(
     const uint8_t channel_list[], const uint8_t channel_list_size,
     wifi_scan_config_t *scan_config) {
   for (uint8_t channel_index = 0; channel_index < channel_list_size;
