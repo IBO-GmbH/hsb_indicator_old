@@ -1,6 +1,6 @@
 #include "images.h"
 
-const ext_img_desc_t images[17] = {
+const ext_img_desc_t images[24] = {
     { "arrowRight", &img_arrow_right },
     { "arrowLeft", &img_arrow_left },
     { "settingsCog", &img_settings_cog },
@@ -18,4 +18,11 @@ const ext_img_desc_t images[17] = {
     { "humidity_alpha8bit", &img_humidity_alpha8bit },
     { "outdoor_alpha8bit", &img_outdoor_alpha8bit },
     { "delete", &img_delete },
+    { "add_room_white", &img_add_room_white },
+    { "fan", &img_fan },
+    { "offset", &img_offset },
+    { "indoor", &img_indoor },
+    { "humidity", &img_humidity },
+    { "visible", &img_visible },
+    { "outdoor_dark", &img_outdoor_dark },
 };

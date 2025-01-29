@@ -24,6 +24,13 @@ extern const lv_img_dsc_t img_indoor_alpha8bit;
 extern const lv_img_dsc_t img_humidity_alpha8bit;
 extern const lv_img_dsc_t img_outdoor_alpha8bit;
 extern const lv_img_dsc_t img_delete;
+extern const lv_img_dsc_t img_add_room_white;
+extern const lv_img_dsc_t img_fan;
+extern const lv_img_dsc_t img_offset;
+extern const lv_img_dsc_t img_indoor;
+extern const lv_img_dsc_t img_humidity;
+extern const lv_img_dsc_t img_visible;
+extern const lv_img_dsc_t img_outdoor_dark;
 
 #ifndef EXT_IMG_DESC_T
 #define EXT_IMG_DESC_T
@@ -33,7 +40,7 @@ typedef struct _ext_img_desc_t {
 } ext_img_desc_t;
 #endif
 
-extern const ext_img_desc_t images[17];
+extern const ext_img_desc_t images[24];
 
 
 #ifdef __cplusplus
