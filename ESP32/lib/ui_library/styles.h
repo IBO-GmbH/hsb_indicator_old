@@ -17,6 +17,11 @@ lv_style_t *get_style_settings_screen_button_MAIN_DEFAULT();
 void add_style_settings_screen_button(lv_obj_t *obj);
 void remove_style_settings_screen_button(lv_obj_t *obj);
 
+// Style: settingsScreenButtonWithContent
+lv_style_t *get_style_settings_screen_button_with_content_MAIN_DEFAULT();
+void add_style_settings_screen_button_with_content(lv_obj_t *obj);
+void remove_style_settings_screen_button_with_content(lv_obj_t *obj);
+
 // Style: settingsTopBarContainer
 lv_style_t *get_style_settings_top_bar_container_MAIN_DEFAULT();
 void add_style_settings_top_bar_container(lv_obj_t *obj);
@@ -102,6 +107,17 @@ void remove_style_start_value_big_green_label(lv_obj_t *obj);
 lv_style_t *get_style_start_value_unit_label_MAIN_DEFAULT();
 void add_style_start_value_unit_label(lv_obj_t *obj);
 void remove_style_start_value_unit_label(lv_obj_t *obj);
+
+// Style: settingsButtonText
+lv_style_t *get_style_settings_button_text_MAIN_DEFAULT();
+void add_style_settings_button_text(lv_obj_t *obj);
+void remove_style_settings_button_text(lv_obj_t *obj);
+
+// Style: optionsCheckBox
+lv_style_t *get_style_options_check_box_MAIN_DEFAULT();
+lv_style_t *get_style_options_check_box_INDICATOR_DEFAULT();
+void add_style_options_check_box(lv_obj_t *obj);
+void remove_style_options_check_box(lv_obj_t *obj);
 
 
 
