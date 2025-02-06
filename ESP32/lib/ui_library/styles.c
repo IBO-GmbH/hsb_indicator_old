@@ -682,6 +682,35 @@ void remove_style_options_check_box(lv_obj_t *obj) {
 };
 
 //
+// Style: defaultTab
+//
+
+void init_style_default_tab_MAIN_DEFAULT(lv_style_t *style) {
+    lv_style_set_layout(style, LV_LAYOUT_FLEX);
+    lv_style_set_bg_opa(style, 255);
+    lv_style_set_flex_flow(style, LV_FLEX_FLOW_COLUMN);
+    lv_style_set_pad_row(style, 0);
+};
+
+lv_style_t *get_style_default_tab_MAIN_DEFAULT() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_mem_alloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_default_tab_MAIN_DEFAULT(style);
+    }
+    return style;
+};
+
+void add_style_default_tab(lv_obj_t *obj) {
+    lv_obj_add_style(obj, get_style_default_tab_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+void remove_style_default_tab(lv_obj_t *obj) {
+    lv_obj_remove_style(obj, get_style_default_tab_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+//
 //
 //
 
@@ -710,6 +739,7 @@ void add_style(lv_obj_t *obj, int32_t styleIndex) {
         add_style_start_value_unit_label,
         add_style_settings_button_text,
         add_style_options_check_box,
+        add_style_default_tab,
     };
     add_style_funcs[styleIndex](obj);
 }
@@ -739,6 +769,7 @@ void remove_style(lv_obj_t *obj, int32_t styleIndex) {
         remove_style_start_value_unit_label,
         remove_style_settings_button_text,
         remove_style_options_check_box,
+        remove_style_default_tab,
     };
     remove_style_funcs[styleIndex](obj);
 }

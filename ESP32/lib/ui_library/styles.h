@@ -119,6 +119,11 @@ lv_style_t *get_style_options_check_box_INDICATOR_DEFAULT();
 void add_style_options_check_box(lv_obj_t *obj);
 void remove_style_options_check_box(lv_obj_t *obj);
 
+// Style: defaultTab
+lv_style_t *get_style_default_tab_MAIN_DEFAULT();
+void add_style_default_tab(lv_obj_t *obj);
+void remove_style_default_tab(lv_obj_t *obj);
+
 
 
 #ifdef __cplusplus
