@@ -18,11 +18,6 @@ extern const lv_img_dsc_t img_wifi;
 extern const lv_img_dsc_t img_outdoor;
 extern const lv_img_dsc_t img_language;
 extern const lv_img_dsc_t img_connected;
-extern const lv_img_dsc_t img_connected_alpha8bit;
-extern const lv_img_dsc_t img_indoor_alpha4bit;
-extern const lv_img_dsc_t img_indoor_alpha8bit;
-extern const lv_img_dsc_t img_humidity_alpha8bit;
-extern const lv_img_dsc_t img_outdoor_alpha8bit;
 extern const lv_img_dsc_t img_delete;
 extern const lv_img_dsc_t img_add_room_white;
 extern const lv_img_dsc_t img_fan;
@@ -40,7 +35,7 @@ typedef struct _ext_img_desc_t {
 } ext_img_desc_t;
 #endif
 
-extern const ext_img_desc_t images[24];
+extern const ext_img_desc_t images[19];
 
 
 #ifdef __cplusplus
