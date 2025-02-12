@@ -481,7 +481,7 @@ void init_style_start_bottom_bar_image_container_MAIN_DEFAULT(lv_style_t *style)
     lv_style_set_flex_flow(style, LV_FLEX_FLOW_ROW);
     lv_style_set_flex_main_place(style, LV_FLEX_ALIGN_START);
     lv_style_set_flex_track_place(style, LV_FLEX_ALIGN_SPACE_BETWEEN);
-    lv_style_set_pad_left(style, 7);
+    lv_style_set_pad_left(style, 10);
 };
 
 lv_style_t *get_style_start_bottom_bar_image_container_MAIN_DEFAULT() {
