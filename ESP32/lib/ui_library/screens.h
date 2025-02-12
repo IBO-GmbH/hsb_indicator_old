@@ -24,13 +24,10 @@ typedef struct _objects_t {
     lv_obj_t *ventilation_limits;
     lv_obj_t *control_dehumidifier;
     lv_obj_t *dehumidifier_actors;
-    lv_obj_t *dehumidifier_limits;
     lv_obj_t *control_heating;
     lv_obj_t *heating_actors;
-    lv_obj_t *heating_limits;
     lv_obj_t *control_air_quality;
     lv_obj_t *air_quality_actors;
-    lv_obj_t *air_quality_limits;
     lv_obj_t *rooms_sensor;
     lv_obj_t *outdoor_sensor;
     lv_obj_t *wifi;
@@ -154,11 +151,14 @@ typedef struct _objects_t {
     lv_obj_t *obj104;
     lv_obj_t *obj105;
     lv_obj_t *obj106;
+    lv_obj_t *container_top_bar;
+    lv_obj_t *container_bottom_bar;
     lv_obj_t *obj107;
     lv_obj_t *obj108;
     lv_obj_t *obj109;
     lv_obj_t *obj110;
     lv_obj_t *obj111;
+    lv_obj_t *pin_text_area;
     lv_obj_t *obj112;
     lv_obj_t *obj113;
     lv_obj_t *obj114;
@@ -169,6 +169,7 @@ typedef struct _objects_t {
     lv_obj_t *obj119;
     lv_obj_t *obj120;
     lv_obj_t *obj121;
+    lv_obj_t *wifi_password;
     lv_obj_t *obj122;
     lv_obj_t *obj123;
     lv_obj_t *obj124;
@@ -176,64 +177,6 @@ typedef struct _objects_t {
     lv_obj_t *obj126;
     lv_obj_t *obj127;
     lv_obj_t *obj128;
-    lv_obj_t *obj129;
-    lv_obj_t *obj130;
-    lv_obj_t *obj131;
-    lv_obj_t *obj132;
-    lv_obj_t *obj133;
-    lv_obj_t *obj134;
-    lv_obj_t *obj135;
-    lv_obj_t *obj136;
-    lv_obj_t *obj137;
-    lv_obj_t *obj138;
-    lv_obj_t *obj139;
-    lv_obj_t *obj140;
-    lv_obj_t *obj141;
-    lv_obj_t *obj142;
-    lv_obj_t *obj143;
-    lv_obj_t *container_top_bar;
-    lv_obj_t *container_bottom_bar;
-    lv_obj_t *obj144;
-    lv_obj_t *obj145;
-    lv_obj_t *obj146;
-    lv_obj_t *obj147;
-    lv_obj_t *obj148;
-    lv_obj_t *pin_text_area;
-    lv_obj_t *obj149;
-    lv_obj_t *obj150;
-    lv_obj_t *obj151;
-    lv_obj_t *obj152;
-    lv_obj_t *obj153;
-    lv_obj_t *obj154;
-    lv_obj_t *obj155;
-    lv_obj_t *obj156;
-    lv_obj_t *obj157;
-    lv_obj_t *obj158;
-    lv_obj_t *obj159;
-    lv_obj_t *obj160;
-    lv_obj_t *obj161;
-    lv_obj_t *obj162;
-    lv_obj_t *obj163;
-    lv_obj_t *obj164;
-    lv_obj_t *obj165;
-    lv_obj_t *obj166;
-    lv_obj_t *obj167;
-    lv_obj_t *obj168;
-    lv_obj_t *obj169;
-    lv_obj_t *obj170;
-    lv_obj_t *obj171;
-    lv_obj_t *obj172;
-    lv_obj_t *obj173;
-    lv_obj_t *obj174;
-    lv_obj_t *obj175;
-    lv_obj_t *wifi_password;
-    lv_obj_t *obj176;
-    lv_obj_t *obj177;
-    lv_obj_t *obj178;
-    lv_obj_t *obj179;
-    lv_obj_t *obj180;
-    lv_obj_t *obj181;
-    lv_obj_t *obj182;
 } objects_t;
 
 extern objects_t objects;
@@ -255,29 +198,26 @@ enum ScreensEnum {
     SCREEN_ID_VENTILATION_LIMITS = 14,
     SCREEN_ID_CONTROL_DEHUMIDIFIER = 15,
     SCREEN_ID_DEHUMIDIFIER_ACTORS = 16,
-    SCREEN_ID_DEHUMIDIFIER_LIMITS = 17,
-    SCREEN_ID_CONTROL_HEATING = 18,
-    SCREEN_ID_HEATING_ACTORS = 19,
-    SCREEN_ID_HEATING_LIMITS = 20,
-    SCREEN_ID_CONTROL_AIR_QUALITY = 21,
-    SCREEN_ID_AIR_QUALITY_ACTORS = 22,
-    SCREEN_ID_AIR_QUALITY_LIMITS = 23,
-    SCREEN_ID_ROOMS_SENSOR = 24,
-    SCREEN_ID_OUTDOOR_SENSOR = 25,
-    SCREEN_ID_WIFI = 26,
-    SCREEN_ID_WIFI_CONNECT = 27,
-    SCREEN_ID_LANGUAGE = 28,
-    SCREEN_ID_OPTIONS = 29,
-    SCREEN_ID_OPTIONS_DISPLAY = 30,
-    SCREEN_ID_DISPLAY_OPTIONS_QUESTIONNAIRE = 31,
-    SCREEN_ID_OPTIONS_BUILDING_VALUE = 32,
-    SCREEN_ID_BUILDING_VALUE_PER_ROOM = 33,
-    SCREEN_ID_PER_ROOM_ROOM_TYPE = 34,
-    SCREEN_ID_OPTIONS_RESET_OPTIONS = 35,
-    SCREEN_ID_RESET_OPTIONS_VALUES = 36,
-    SCREEN_ID_RESET_OPTIONS_CONFIG = 37,
-    SCREEN_ID_OPTIONS_SHUTDOWN = 38,
-    SCREEN_ID_SENSOR_ACTIVITY = 39,
+    SCREEN_ID_CONTROL_HEATING = 17,
+    SCREEN_ID_HEATING_ACTORS = 18,
+    SCREEN_ID_CONTROL_AIR_QUALITY = 19,
+    SCREEN_ID_AIR_QUALITY_ACTORS = 20,
+    SCREEN_ID_ROOMS_SENSOR = 21,
+    SCREEN_ID_OUTDOOR_SENSOR = 22,
+    SCREEN_ID_WIFI = 23,
+    SCREEN_ID_WIFI_CONNECT = 24,
+    SCREEN_ID_LANGUAGE = 25,
+    SCREEN_ID_OPTIONS = 26,
+    SCREEN_ID_OPTIONS_DISPLAY = 27,
+    SCREEN_ID_DISPLAY_OPTIONS_QUESTIONNAIRE = 28,
+    SCREEN_ID_OPTIONS_BUILDING_VALUE = 29,
+    SCREEN_ID_BUILDING_VALUE_PER_ROOM = 30,
+    SCREEN_ID_PER_ROOM_ROOM_TYPE = 31,
+    SCREEN_ID_OPTIONS_RESET_OPTIONS = 32,
+    SCREEN_ID_RESET_OPTIONS_VALUES = 33,
+    SCREEN_ID_RESET_OPTIONS_CONFIG = 34,
+    SCREEN_ID_OPTIONS_SHUTDOWN = 35,
+    SCREEN_ID_SENSOR_ACTIVITY = 36,
 };
 
 void create_screen_home();
@@ -328,26 +268,17 @@ void tick_screen_control_dehumidifier();
 void create_screen_dehumidifier_actors();
 void tick_screen_dehumidifier_actors();
 
-void create_screen_dehumidifier_limits();
-void tick_screen_dehumidifier_limits();
-
 void create_screen_control_heating();
 void tick_screen_control_heating();
 
 void create_screen_heating_actors();
 void tick_screen_heating_actors();
 
-void create_screen_heating_limits();
-void tick_screen_heating_limits();
-
 void create_screen_control_air_quality();
 void tick_screen_control_air_quality();
 
 void create_screen_air_quality_actors();
 void tick_screen_air_quality_actors();
-
-void create_screen_air_quality_limits();
-void tick_screen_air_quality_limits();
 
 void create_screen_rooms_sensor();
 void tick_screen_rooms_sensor();
