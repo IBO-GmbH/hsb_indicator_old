@@ -168,15 +168,14 @@ typedef struct _objects_t {
     lv_obj_t *obj118;
     lv_obj_t *obj119;
     lv_obj_t *obj120;
-    lv_obj_t *obj121;
     lv_obj_t *wifi_password;
+    lv_obj_t *obj121;
     lv_obj_t *obj122;
     lv_obj_t *obj123;
     lv_obj_t *obj124;
     lv_obj_t *obj125;
     lv_obj_t *obj126;
     lv_obj_t *obj127;
-    lv_obj_t *obj128;
 } objects_t;
 
 extern objects_t objects;

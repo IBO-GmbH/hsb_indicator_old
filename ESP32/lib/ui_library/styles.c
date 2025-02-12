@@ -10,7 +10,7 @@
 
 void init_style_start_top_bar_label_MAIN_DEFAULT(lv_style_t *style) {
     lv_style_set_text_align(style, LV_TEXT_ALIGN_CENTER);
-    lv_style_set_text_font(style, &lv_font_montserrat_36);
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_36);
     lv_style_set_text_color(style, lv_color_hex(0xffffffff));
     lv_style_set_text_opa(style, 255);
 };
@@ -189,7 +189,7 @@ void remove_style_default_screen(lv_obj_t *obj) {
 void init_style_settings_bar_top_label_MAIN_DEFAULT(lv_style_t *style) {
     lv_style_set_text_color(style, lv_color_hex(0xffffffff));
     lv_style_set_text_opa(style, 255);
-    lv_style_set_text_font(style, &lv_font_montserrat_32);
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_32);
 };
 
 lv_style_t *get_style_settings_bar_top_label_MAIN_DEFAULT() {
@@ -215,7 +215,7 @@ void remove_style_settings_bar_top_label(lv_obj_t *obj) {
 //
 
 void init_style_start_value_grey_label_MAIN_DEFAULT(lv_style_t *style) {
-    lv_style_set_text_font(style, &lv_font_montserrat_30);
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_30);
 };
 
 lv_style_t *get_style_start_value_grey_label_MAIN_DEFAULT() {
@@ -508,6 +508,7 @@ void remove_style_start_bottom_bar_image_container(lv_obj_t *obj) {
 
 void init_style_start_bottom_bar_date_time_label_MAIN_DEFAULT(lv_style_t *style) {
     lv_style_set_text_color(style, lv_color_hex(0xff6a6a6a));
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_14);
 };
 
 lv_style_t *get_style_start_bottom_bar_date_time_label_MAIN_DEFAULT() {
@@ -562,7 +563,7 @@ void remove_style_start_bottom_bar_settings_button(lv_obj_t *obj) {
 //
 
 void init_style_start_value_big_green_label_MAIN_DEFAULT(lv_style_t *style) {
-    lv_style_set_text_font(style, &lv_font_montserrat_48);
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_48);
     lv_style_set_text_opa(style, 255);
     lv_style_set_text_color(style, lv_color_hex(0xff19d42d));
 };
@@ -590,7 +591,7 @@ void remove_style_start_value_big_green_label(lv_obj_t *obj) {
 //
 
 void init_style_start_value_unit_label_MAIN_DEFAULT(lv_style_t *style) {
-    lv_style_set_text_font(style, &lv_font_montserrat_38);
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_38);
 };
 
 lv_style_t *get_style_start_value_unit_label_MAIN_DEFAULT() {
@@ -612,31 +613,31 @@ void remove_style_start_value_unit_label(lv_obj_t *obj) {
 };
 
 //
-// Style: settingsButtonText
+// Style: settingsButtonTextLabel
 //
 
-void init_style_settings_button_text_MAIN_DEFAULT(lv_style_t *style) {
+void init_style_settings_button_text_label_MAIN_DEFAULT(lv_style_t *style) {
     lv_style_set_align(style, LV_ALIGN_CENTER);
-    lv_style_set_text_font(style, &lv_font_montserrat_26);
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_26);
     lv_style_set_text_align(style, LV_TEXT_ALIGN_CENTER);
 };
 
-lv_style_t *get_style_settings_button_text_MAIN_DEFAULT() {
+lv_style_t *get_style_settings_button_text_label_MAIN_DEFAULT() {
     static lv_style_t *style;
     if (!style) {
         style = lv_mem_alloc(sizeof(lv_style_t));
         lv_style_init(style);
-        init_style_settings_button_text_MAIN_DEFAULT(style);
+        init_style_settings_button_text_label_MAIN_DEFAULT(style);
     }
     return style;
 };
 
-void add_style_settings_button_text(lv_obj_t *obj) {
-    lv_obj_add_style(obj, get_style_settings_button_text_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+void add_style_settings_button_text_label(lv_obj_t *obj) {
+    lv_obj_add_style(obj, get_style_settings_button_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
 };
 
-void remove_style_settings_button_text(lv_obj_t *obj) {
-    lv_obj_remove_style(obj, get_style_settings_button_text_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+void remove_style_settings_button_text_label(lv_obj_t *obj) {
+    lv_obj_remove_style(obj, get_style_settings_button_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
 };
 
 //
@@ -644,7 +645,7 @@ void remove_style_settings_button_text(lv_obj_t *obj) {
 //
 
 void init_style_options_check_box_MAIN_DEFAULT(lv_style_t *style) {
-    lv_style_set_text_font(style, &lv_font_montserrat_26);
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_26);
 };
 
 lv_style_t *get_style_options_check_box_MAIN_DEFAULT() {
@@ -711,6 +712,139 @@ void remove_style_default_tab(lv_obj_t *obj) {
 };
 
 //
+// Style: regularTextLabel
+//
+
+void init_style_regular_text_label_MAIN_DEFAULT(lv_style_t *style) {
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_26);
+};
+
+lv_style_t *get_style_regular_text_label_MAIN_DEFAULT() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_mem_alloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_regular_text_label_MAIN_DEFAULT(style);
+    }
+    return style;
+};
+
+void add_style_regular_text_label(lv_obj_t *obj) {
+    lv_obj_add_style(obj, get_style_regular_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+void remove_style_regular_text_label(lv_obj_t *obj) {
+    lv_obj_remove_style(obj, get_style_regular_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+//
+// Style: whiteSettingsTextLabel
+//
+
+void init_style_white_settings_text_label_MAIN_DEFAULT(lv_style_t *style) {
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_26);
+    lv_style_set_text_align(style, LV_TEXT_ALIGN_CENTER);
+};
+
+lv_style_t *get_style_white_settings_text_label_MAIN_DEFAULT() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_mem_alloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_white_settings_text_label_MAIN_DEFAULT(style);
+    }
+    return style;
+};
+
+void add_style_white_settings_text_label(lv_obj_t *obj) {
+    lv_obj_add_style(obj, get_style_white_settings_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+void remove_style_white_settings_text_label(lv_obj_t *obj) {
+    lv_obj_remove_style(obj, get_style_white_settings_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+//
+// Style: whiteInfoTextLabel
+//
+
+void init_style_white_info_text_label_MAIN_DEFAULT(lv_style_t *style) {
+    lv_style_set_text_color(style, lv_color_hex(0xffffffff));
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_36);
+};
+
+lv_style_t *get_style_white_info_text_label_MAIN_DEFAULT() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_mem_alloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_white_info_text_label_MAIN_DEFAULT(style);
+    }
+    return style;
+};
+
+void add_style_white_info_text_label(lv_obj_t *obj) {
+    lv_obj_add_style(obj, get_style_white_info_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+void remove_style_white_info_text_label(lv_obj_t *obj) {
+    lv_obj_remove_style(obj, get_style_white_info_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+//
+// Style: blackInfoTextLabel
+//
+
+void init_style_black_info_text_label_MAIN_DEFAULT(lv_style_t *style) {
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_36);
+    lv_style_set_text_align(style, LV_TEXT_ALIGN_CENTER);
+};
+
+lv_style_t *get_style_black_info_text_label_MAIN_DEFAULT() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_mem_alloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_black_info_text_label_MAIN_DEFAULT(style);
+    }
+    return style;
+};
+
+void add_style_black_info_text_label(lv_obj_t *obj) {
+    lv_obj_add_style(obj, get_style_black_info_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+void remove_style_black_info_text_label(lv_obj_t *obj) {
+    lv_obj_remove_style(obj, get_style_black_info_text_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+//
+// Style: regularTextSmallLabel
+//
+
+void init_style_regular_text_small_label_MAIN_DEFAULT(lv_style_t *style) {
+    lv_style_set_text_font(style, &ui_font_clear_sans_regular_14);
+};
+
+lv_style_t *get_style_regular_text_small_label_MAIN_DEFAULT() {
+    static lv_style_t *style;
+    if (!style) {
+        style = lv_mem_alloc(sizeof(lv_style_t));
+        lv_style_init(style);
+        init_style_regular_text_small_label_MAIN_DEFAULT(style);
+    }
+    return style;
+};
+
+void add_style_regular_text_small_label(lv_obj_t *obj) {
+    lv_obj_add_style(obj, get_style_regular_text_small_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+void remove_style_regular_text_small_label(lv_obj_t *obj) {
+    lv_obj_remove_style(obj, get_style_regular_text_small_label_MAIN_DEFAULT(), LV_PART_MAIN | LV_STATE_DEFAULT);
+};
+
+//
 //
 //
 
@@ -737,9 +871,14 @@ void add_style(lv_obj_t *obj, int32_t styleIndex) {
         add_style_start_bottom_bar_settings_button,
         add_style_start_value_big_green_label,
         add_style_start_value_unit_label,
-        add_style_settings_button_text,
+        add_style_settings_button_text_label,
         add_style_options_check_box,
         add_style_default_tab,
+        add_style_regular_text_label,
+        add_style_white_settings_text_label,
+        add_style_white_info_text_label,
+        add_style_black_info_text_label,
+        add_style_regular_text_small_label,
     };
     add_style_funcs[styleIndex](obj);
 }
@@ -767,9 +906,14 @@ void remove_style(lv_obj_t *obj, int32_t styleIndex) {
         remove_style_start_bottom_bar_settings_button,
         remove_style_start_value_big_green_label,
         remove_style_start_value_unit_label,
-        remove_style_settings_button_text,
+        remove_style_settings_button_text_label,
         remove_style_options_check_box,
         remove_style_default_tab,
+        remove_style_regular_text_label,
+        remove_style_white_settings_text_label,
+        remove_style_white_info_text_label,
+        remove_style_black_info_text_label,
+        remove_style_regular_text_small_label,
     };
     remove_style_funcs[styleIndex](obj);
 }

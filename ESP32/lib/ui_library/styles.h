@@ -108,10 +108,10 @@ lv_style_t *get_style_start_value_unit_label_MAIN_DEFAULT();
 void add_style_start_value_unit_label(lv_obj_t *obj);
 void remove_style_start_value_unit_label(lv_obj_t *obj);
 
-// Style: settingsButtonText
-lv_style_t *get_style_settings_button_text_MAIN_DEFAULT();
-void add_style_settings_button_text(lv_obj_t *obj);
-void remove_style_settings_button_text(lv_obj_t *obj);
+// Style: settingsButtonTextLabel
+lv_style_t *get_style_settings_button_text_label_MAIN_DEFAULT();
+void add_style_settings_button_text_label(lv_obj_t *obj);
+void remove_style_settings_button_text_label(lv_obj_t *obj);
 
 // Style: optionsCheckBox
 lv_style_t *get_style_options_check_box_MAIN_DEFAULT();
@@ -123,6 +123,31 @@ void remove_style_options_check_box(lv_obj_t *obj);
 lv_style_t *get_style_default_tab_MAIN_DEFAULT();
 void add_style_default_tab(lv_obj_t *obj);
 void remove_style_default_tab(lv_obj_t *obj);
+
+// Style: regularTextLabel
+lv_style_t *get_style_regular_text_label_MAIN_DEFAULT();
+void add_style_regular_text_label(lv_obj_t *obj);
+void remove_style_regular_text_label(lv_obj_t *obj);
+
+// Style: whiteSettingsTextLabel
+lv_style_t *get_style_white_settings_text_label_MAIN_DEFAULT();
+void add_style_white_settings_text_label(lv_obj_t *obj);
+void remove_style_white_settings_text_label(lv_obj_t *obj);
+
+// Style: whiteInfoTextLabel
+lv_style_t *get_style_white_info_text_label_MAIN_DEFAULT();
+void add_style_white_info_text_label(lv_obj_t *obj);
+void remove_style_white_info_text_label(lv_obj_t *obj);
+
+// Style: blackInfoTextLabel
+lv_style_t *get_style_black_info_text_label_MAIN_DEFAULT();
+void add_style_black_info_text_label(lv_obj_t *obj);
+void remove_style_black_info_text_label(lv_obj_t *obj);
+
+// Style: regularTextSmallLabel
+lv_style_t *get_style_regular_text_small_label_MAIN_DEFAULT();
+void add_style_regular_text_small_label(lv_obj_t *obj);
+void remove_style_regular_text_small_label(lv_obj_t *obj);
 
 
 
