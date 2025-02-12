@@ -18,7 +18,6 @@ extern const lv_img_dsc_t img_wifi;
 extern const lv_img_dsc_t img_outdoor;
 extern const lv_img_dsc_t img_language;
 extern const lv_img_dsc_t img_connected;
-extern const lv_img_dsc_t img_delete;
 extern const lv_img_dsc_t img_add_room_white;
 extern const lv_img_dsc_t img_fan;
 extern const lv_img_dsc_t img_offset;
@@ -26,6 +25,7 @@ extern const lv_img_dsc_t img_indoor;
 extern const lv_img_dsc_t img_humidity;
 extern const lv_img_dsc_t img_visible;
 extern const lv_img_dsc_t img_outdoor_dark;
+extern const lv_img_dsc_t img_delete;
 
 #ifndef EXT_IMG_DESC_T
 #define EXT_IMG_DESC_T

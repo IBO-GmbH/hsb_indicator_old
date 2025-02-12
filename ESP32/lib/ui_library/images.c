@@ -12,7 +12,6 @@ const ext_img_desc_t images[19] = {
     { "outdoor", &img_outdoor },
     { "language", &img_language },
     { "connected", &img_connected },
-    { "delete", &img_delete },
     { "add_room_white", &img_add_room_white },
     { "fan", &img_fan },
     { "offset", &img_offset },
@@ -20,4 +19,5 @@ const ext_img_desc_t images[19] = {
     { "humidity", &img_humidity },
     { "visible", &img_visible },
     { "outdoor_dark", &img_outdoor_dark },
+    { "delete", &img_delete },
 };
