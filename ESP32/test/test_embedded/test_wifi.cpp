@@ -3,12 +3,12 @@
 // void test_wifi_default_connection(void) {
 TEST_F(WifiTest, DefaultConnectionEstablish) {
   // connect to wifi defined in the credentials
-  EXPECT_EQ(m_wifi_handler.connect_to_wifi(), ESP_OK)
+  EXPECT_EQ(m_wifi_manager.connect_to_wifi(), ESP_OK)
       << "Wifi connection could not be established";
 }
 
 TEST_F(WifiTest, Scan) {
-  EXPECT_EQ(m_wifi_handler.connect_to_wifi(), ESP_OK)
+  EXPECT_EQ(m_wifi_manager.connect_to_wifi(), ESP_OK)
       << "Wifi connection could not be established";
 
   int max_tries = 10;
@@ -16,7 +16,7 @@ TEST_F(WifiTest, Scan) {
 
   // create ap_records array in which the scan result is saved
   std::array<wifi_ap_record_t, (size_t)DEFAULT_SCAN_LIST_SIZE> scan_res;
-  while (m_wifi_handler.scan(scan_res) != ESP_OK) {
+  while (m_wifi_manager.scan(scan_res) != ESP_OK) {
     current_try++;
     ASSERT_LT(current_try, max_tries);
     std::cout << "Scan failed. Wait and try again" << std::endl;
@@ -24,7 +24,7 @@ TEST_F(WifiTest, Scan) {
   };
 
   // print scan result
-  m_wifi_handler.log_ap_info(scan_res);
+  m_wifi_manager.log_ap_info(scan_res);
 
   // get connected AP and check if it is in the scan result
   wifi_ap_record_t connected_ap_info;
