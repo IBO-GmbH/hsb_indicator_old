@@ -1,4 +1,3 @@
-SET(SOURCES *.cpp
-    *.c)
-
-add_library(ui ${SOURCES})
+idf_component_register(SRCS "*.cpp" "*.c"
+                       INCLUDE_DIRS "screens" "components"
+                       REQUIRES lvgl)
