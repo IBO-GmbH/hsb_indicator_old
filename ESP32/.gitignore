@@ -6,3 +6,6 @@ build
 *.lock
 credentials.h
 dependencies.lock
+
+# config
+userConfig.txt
